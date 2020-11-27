@@ -1,3 +1,55 @@
 {
-    "extends": "eslint:recommended"
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "unused-imports"
+  ],
+  "rules": {
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-use-before-define": [
+      "error"
+    ],
+    "arrow-parens": "off",
+    "eqeqeq": "off",
+    "import/extensions": "off",
+    "import/no-unresolved": "off",
+    "import/prefer-default-export": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "linebreak-style": "off",
+    "no-nested-ternary": "off",
+    "no-use-before-define": "off",
+    "operator-linebreak": "off",
+    "react/destructuring-assignment": "off",
+    "react/jsx-filename-extension": "off",
+    "react/jsx-indent": "off",
+    "react/no-array-index-key": "off",
+    "unused-imports/no-unused-imports-ts": "error",
+    "unused-imports/no-unused-vars-ts": [
+      "warn",
+      {
+        "args": "after-used",
+        "argsIgnorePattern": "^_",
+        "vars": "all",
+        "varsIgnorePattern": "^_"
+      }
+    ]
+  }
 }
