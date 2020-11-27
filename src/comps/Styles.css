@@ -1,0 +1,55 @@
+.clickable {
+    cursor: pointer;
+}
+
+.horizontal-panel>* {
+    margin-right: .5rem;
+}
+
+.vertical-panel>* {
+    margin-bottom: .5rem;
+}
+
+.raw-viewer {
+    font-family: monospace;
+    white-space: pre;
+}
+
+.value-viewer {
+    display: flex;
+}
+
+.value-viewer .name {
+    font-weight: bold;
+    margin-right: .5rem;
+    margin-top: .1rem;
+    margin-bottom: .1rem;
+}
+
+.value-viewer .name .fas,
+.value-viewer .name .far {
+    font-size: .7rem;
+    width: 1rem;
+    color: #888;
+    vertical-align: middle;
+}
+
+.value-viewer .name .far.fa-circle {
+    font-size: .3rem;
+}
+
+.value-viewer .value {
+    white-space: pre;
+    margin-top: .1rem;
+    margin-bottom: .1rem;
+    color: #008;
+}
+
+.value-viewer .value.string {
+    color: #080;
+}
+
+.inner-object-viewer {
+    padding-left: .7rem;
+    border-left: 1px solid #ddd;
+}

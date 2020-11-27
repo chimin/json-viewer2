@@ -1,0 +1,22 @@
+{
+    "null-field": null,
+    "string-field": "this_is_a_string",
+    "number-field": 12345,
+    "boolean-field": true,
+    "multiline-string-field": "this\nis\nmultiline\nstring",
+    "object-field": {
+        "inner-string-field": "this_is_another_string",
+        "inner-number-field": 99999,
+        "inner-boolean-field": false,
+        "inner-object-field": {
+            "inner-inner-string-field": "this_is_another_another_string",
+            "inner-inner-number-field": 11111,
+            "inner-inner-boolean-field": true
+        }
+    },
+    "array-field": [
+        "string",
+        111,
+        true
+    ]
+}
