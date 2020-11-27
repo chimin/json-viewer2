@@ -9,18 +9,21 @@ export const TableViewer = (props: { json: any, path: string }) => {
   return (
     <table className="table-viewer">
       <thead>
-        <th>#</th>
-        {columns.map(column => <th>{column}</th>)}
+        <tr>
+          <th>#</th>
+          {columns.map(column => <th key={column}>{column}</th>)}
+        </tr>
       </thead>
       <tbody>
         {props.json.map((row, index) => (
           <tr key={index}>
             <th>{index}</th>
             {columns.map(column => (
-              <td>
-                {isValueType(row[column]) ?
-                  <ValueViewer value={row[column]} /> :
-                  <TableObjectViewer json={row[column]} path={`${props.path}/${index}/${column}`} />}
+              <td key={column}>
+                {!Object.keys(row).includes(column) ? null :
+                  isValueType(row[column]) ?
+                    <ValueViewer value={row[column]} /> :
+                    <TableObjectViewer json={row[column]} path={`${props.path}/${index}/${column}`} />}
               </td>
             ))}
           </tr>
