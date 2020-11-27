@@ -15,41 +15,60 @@
     white-space: pre;
 }
 
-.value-viewer {
+.object-field-viewer {
     display: flex;
 }
 
-.value-viewer .name {
+.object-field-viewer .name {
     font-weight: bold;
     margin-right: .5rem;
     margin-top: .1rem;
     margin-bottom: .1rem;
+    white-space: pre;
 }
 
-.value-viewer .name .fas,
-.value-viewer .name .far {
+.object-field-viewer .name .fas,
+.object-field-viewer .name .far {
     font-size: .7rem;
     width: 1rem;
     color: #888;
     vertical-align: middle;
 }
 
-.value-viewer .name .far.fa-circle {
+.object-field-viewer .name .far.fa-circle {
     font-size: .3rem;
 }
 
-.value-viewer .value {
+.object-field-viewer .value {
     white-space: pre;
     margin-top: .1rem;
     margin-bottom: .1rem;
+}
+
+.value {
     color: #008;
 }
 
-.value-viewer .value.string {
+.value.string {
     color: #080;
 }
 
-.inner-object-viewer {
+.object-inner-viewer {
     padding-left: .7rem;
     border-left: 1px solid #ddd;
+}
+
+.table-viewer {
+    border-collapse: collapse;
+}
+
+.table-viewer td,
+.table-viewer th {
+    border: 1px solid #aaa;
+    padding: .2rem .5rem;
+    vertical-align: top;
+}
+
+.table-viewer th {
+    background-color: #eee;
 }

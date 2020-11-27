@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ObjectViewer } from './ObjectViewer';
 import { RawViewer } from './RawViewer';
-import { ValueViewer } from './ValueViewer';
+import { ObjectFieldViewer } from './ObjectFieldViewer';
 import './Styles.css';
 
 export const JsonViewer = (props: { json: any }) => {
@@ -21,7 +21,7 @@ export const JsonViewer = (props: { json: any }) => {
             </div>
             <div>
                 {isFormatted ?
-                    <ObjectViewer json={props.json} /> :
+                    <ObjectViewer json={props.json} path="" /> :
                     <RawViewer json={props.json} />}
             </div>
         </div>);

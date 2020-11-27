@@ -17,6 +17,29 @@
     "array-field": [
         "string",
         111,
-        true
+        true,
+        {
+            "array-inner-field": "string_in_an_array"
+        }
+    ],
+    "table-field": [
+        {
+            "col-1": "abc",
+            "col-2": 123
+        },
+        {
+            "col-2": "abc",
+            "col-3": 123
+        },
+        {
+            "col-1": "abc",
+            "col-3": 123,
+            "col-4": {
+                "table-inner-field": "string_in_a_table",
+                "table-inner": {
+                    "table-inner-inner-field": "string_in_an_object_in_a_table"
+                }
+            }
+        }
     ]
 }
