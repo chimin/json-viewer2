@@ -53,6 +53,11 @@
     color: #080;
 }
 
+.value.simplified,
+.value.empty {
+    color: #888;
+}
+
 .object-inner-viewer {
     padding-left: .7rem;
     border-left: 1px solid #ddd;
@@ -71,4 +76,21 @@
 
 .table-viewer th {
     background-color: #eee;
+}
+
+.table-object-viewer .button {
+    min-height: 1rem;
+}
+
+.table-object-viewer .button .fas {
+    font-size: .7rem;
+    color: #888;
+    vertical-align: middle;
+    margin-right: .5rem;
+}
+
+.table-object-viewer .button.expanded .fas {
+    position: relative;
+    top: .6rem;
+    transform: translateY(-50%);
 }

@@ -4,6 +4,7 @@ import { ObjectViewer } from './ObjectViewer';
 import './Styles.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 import { ValueViewer } from './ValueViewer';
+import { SimplifiedOjectViewer } from './SimplifiedObjectViewer';
 
 export const ObjectFieldViewer = (props: { name: string, value: any, path: string }) => {
   const [isExpanded, setExpanded] = useState(getLastState(`${props.path}.isExpanded`) == '1');
@@ -25,7 +26,9 @@ export const ObjectFieldViewer = (props: { name: string, value: any, path: strin
             <i className="far fa-circle" />}
           {props.name}
         </span>
-        {valueType ? <ValueViewer value={props.value} /> : null}
+        {valueType ? <ValueViewer value={props.value} /> :
+          !isExpanded ? <SimplifiedOjectViewer json={props.value} path={props.path} /> :
+            null}
       </div>
       {!valueType && isExpanded ? (
         <div className="object-inner-viewer">

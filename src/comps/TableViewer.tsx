@@ -1,6 +1,7 @@
 import React from 'react';
 import { getTableColumns, isValueType } from '../utils';
 import { ObjectViewer } from './ObjectViewer';
+import { TableObjectViewer } from './TableObjectViewer';
 import { ValueViewer } from './ValueViewer';
 
 export const TableViewer = (props: { json: any, path: string }) => {
@@ -19,7 +20,7 @@ export const TableViewer = (props: { json: any, path: string }) => {
               <td>
                 {isValueType(row[column]) ?
                   <ValueViewer value={row[column]} /> :
-                  <ObjectViewer json={row[column]} path={`${props.path}/${index}/${column}`} />}
+                  <TableObjectViewer json={row[column]} path={`${props.path}/${index}/${column}`} />}
               </td>
             ))}
           </tr>
