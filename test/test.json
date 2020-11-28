@@ -7,6 +7,9 @@
   "empty-object-field": {},
   "empty-array-field": [],
   "object-field": {
+    "": {
+      "field": "in_an_object_with_empty_key_name"
+    },
     "inner-string-field": "this_is_another_string",
     "inner-number-field": 99999,
     "inner-boolean-field": false,

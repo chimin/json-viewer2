@@ -1,6 +1,6 @@
 /// <reference path="../node_modules/web-ext-types/global/index.d.ts" />
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 /* global browser */
 

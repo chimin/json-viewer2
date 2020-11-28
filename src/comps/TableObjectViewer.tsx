@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { getLastState, setLastState, useLastStateBoolean } from '../utils';
+import React from 'react';
+import { useLastStateBoolean } from '../utils';
 import { ObjectViewer } from './ObjectViewer';
 import { SimplifiedOjectViewer } from './SimplifiedObjectViewer';
 
@@ -8,7 +8,7 @@ export const TableObjectViewer = (props: { json: any, path: string }) => {
 
   return (
     <div className="table-object-viewer">
-      <div className={isExpanded ? 'button expanded' : 'button'}>
+      <div className="button">
         {isExpanded ?
           <i className="fas fa-chevron-down clickable" onClick={() => setExpanded(false)} /> :
           <i className="fas fa-chevron-right clickable" onClick={() => setExpanded(true)} />}

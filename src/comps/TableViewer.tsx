@@ -1,6 +1,5 @@
 import React from 'react';
 import { getTableColumns, isValueType } from '../utils';
-import { ObjectViewer } from './ObjectViewer';
 import { TableObjectViewer } from './TableObjectViewer';
 import { ValueViewer } from './ValueViewer';
 

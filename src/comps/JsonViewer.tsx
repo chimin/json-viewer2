@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLastState } from '../utils';
 import { ObjectViewer } from './ObjectViewer';
 import { PrettyPrintViewer } from './PrettyPrintViewer';

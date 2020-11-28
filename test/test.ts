@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { JsonViewer } from '../src/comps/JsonViewer';
 
-const json = require('./test2.json');
+const json = require('./test.json');
 
 const hidden = document.createElement('div');
 hidden.textContent = '...';

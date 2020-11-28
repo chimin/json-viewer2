@@ -31,6 +31,10 @@ body {
     white-space: pre;
 }
 
+.object-field-viewer .name:after {
+    content: '\0020';
+}
+
 .object-field-viewer .name .fas,
 .object-field-viewer .name .far {
     font-size: .7rem;
@@ -83,7 +87,12 @@ body {
 }
 
 .table-object-viewer .button {
-    min-height: 1rem;
+    margin-top: .1rem;
+    margin-bottom: .1rem;
+}
+
+.table-object-viewer .button:after {
+    content: '\0020';
 }
 
 .table-object-viewer .button .fas {
@@ -91,10 +100,4 @@ body {
     color: #888;
     vertical-align: middle;
     margin-right: .5rem;
-}
-
-.table-object-viewer .button.expanded .fas {
-    position: relative;
-    top: .6rem;
-    transform: translateY(-50%);
 }
