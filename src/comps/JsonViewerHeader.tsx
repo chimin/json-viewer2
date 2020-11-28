@@ -1,21 +1,21 @@
 import React from 'react';
-import { JsonShowType } from '../types';
+import { JsonViewerType } from '../types';
 
-export const JsonViewerHeader = ({ showType, setShowType }: {
-  showType: JsonShowType,
-  setShowType: (value: JsonShowType) => void
+export const JsonViewerHeader = ({ viewerType, setViewerType }: {
+  viewerType: JsonViewerType,
+  setViewerType: (value: JsonViewerType) => void
 }) => (
     <div className="json-viewer-header">
       <label>
-        <input type="radio" checked={showType == 'tree-view'} onClick={() => setShowType('tree-view')} />
+        <input type="radio" checked={viewerType == 'tree-view'} onClick={() => setViewerType('tree-view')} />
         Tree view
       </label>
       <label>
-        <input type="radio" checked={showType == 'pretty-print'} onClick={() => setShowType('pretty-print')} />
+        <input type="radio" checked={viewerType == 'pretty-print'} onClick={() => setViewerType('pretty-print')} />
         Pretty print
       </label>
       <label>
-        <input type="radio" checked={showType == 'raw'} onClick={() => setShowType('raw')} />
+        <input type="radio" checked={viewerType == 'raw'} onClick={() => setViewerType('raw')} />
         Raw
       </label>
     </div>

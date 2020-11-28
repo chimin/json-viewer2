@@ -1,8 +1,17 @@
 import React from 'react';
-import { ComplexValueViewer } from './ComplexValueViewer';
+import { isSimpleType } from '../utils';
+import { RootObjectViewer } from './RootObjectViewer';
+import { SimpleValueViewer } from './SimpleValueViewer';
 
-export const RootViewer = ({ value }: {
-  value: any
+export const RootViewer = ({ value, path }: {
+  value: any,
+  path: string
 }) => (
-    <ComplexValueViewer value={value} path="" level={0} />
+    <>
+      {
+        isSimpleType(value) ?
+          <SimpleValueViewer value={value} /> :
+          <RootObjectViewer value={value} path={path} />
+      }
+    </>
   );

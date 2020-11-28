@@ -1,5 +1,5 @@
 import React from 'react';
-import { JsonShowType } from '../types';
+import { JsonViewerType } from '../types';
 import { useLastState } from '../utils';
 import { RootViewer } from './RootViewer';
 import { JsonViewerHeader } from './JsonViewerHeader';
@@ -10,16 +10,16 @@ export const JsonViewer = ({ json, raw }: {
   json: any,
   raw: HTMLElement,
 }) => {
-  const [showType, setShowType] = useLastState<JsonShowType>('jsonShowType', 'raw');
+  const [viewerType, setViewerType] = useLastState<JsonViewerType>('jsonViewerType', 'raw');
 
   return (
     <div className="json-viewer">
-      <JsonViewerHeader showType={showType} setShowType={setShowType} />
+      <JsonViewerHeader viewerType={viewerType} setViewerType={setViewerType} />
       <div className="body">
         {
-          showType == 'tree-view' ? <RootViewer value={json} /> :
-            showType == 'pretty-print' ? <PrettyPrintViewer json={json} /> :
-              showType == 'raw' ? <RawViewer raw={raw} /> :
+          viewerType == 'tree-view' ? <RootViewer value={json} /> :
+            viewerType == 'pretty-print' ? <PrettyPrintViewer json={json} /> :
+              viewerType == 'raw' ? <RawViewer raw={raw} /> :
                 null
         }
       </div>

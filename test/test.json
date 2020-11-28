@@ -30,7 +30,7 @@
       "array-inner-field": "string_in_an_array"
     }
   ],
-  "table-field": [
+  "array-table-field": [
     {
       "col-1": "abc",
       "col-2": 999,
@@ -58,5 +58,39 @@
         }
       }
     }
-  ]
+  ],
+  "object-table-field": {
+    "a": {
+      "col-1": "abc",
+      "col-2": 999,
+      "col-3": 1
+    },
+    "c": {
+      "col-2": "abc",
+      "col-3": 3
+    },
+    "b": {
+      "col-4": [
+        {
+          "inner-col-1": "111"
+        },
+        {
+          "inner-col-2": "222"
+        }
+      ]
+    },
+    "z": {
+      "col-1": "abc",
+      "col-3": 2,
+      "col-4": {
+        "table-inner-field": "string_in_a_table_2",
+        "table-inner": {
+          "table-inner-inner-field": "string_in_an_object_in_a_table_2",
+          "table-inner-inner": {
+            "table-inner-inner-inner-field": "string_in_an_object_in_a_table_3"
+          }
+        }
+      }
+    }
+  }
 }

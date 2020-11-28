@@ -11,6 +11,34 @@ body {
     background-color: #eee;
 }
 
+.selection-panel {
+    color: #888;
+    >* {
+        margin-right: .3rem;
+        input {
+            margin-right: .3rem;
+        }
+    }
+}
+
+.simple-value {
+    display: inline-block;
+    white-space: pre-wrap;
+    color: #808;
+}
+
+.simple-value.string {
+    color: #080;
+}
+
+.simple-value.complex {
+    color: #880;
+}
+
+.simple-value.link {
+    color: #008;
+}
+
 .raw-viewer {
     padding-left: .5rem;
     padding-right: .5rem;
@@ -36,6 +64,37 @@ body {
 .json-viewer-header {
     padding: .5rem;
     background-color: #eee;
+    >* {
+        margin-right: .5rem;
+        input {
+            margin-right: .3rem;
+        }
+    }
+}
+
+.root-object-viewer {
+    .header-row {
+        padding-top: .1rem;
+        padding-bottom: .1rem;
+        display: flex;
+        .icon {
+            white-space: pre;
+            min-width: 1rem;
+            text-align: center;
+            padding-right: .5rem;
+            .fa-circle {
+                font-size: .3rem;
+                transform: translateY(-.15rem);
+            }
+            .fa-chevron-right,
+            .fa-chevron-down {
+                font-size: .7rem;
+            }
+        }
+        .icon:after {
+            content: '\0020';
+        }
+    }
 }
 
 .object-row-viewer {
@@ -66,20 +125,31 @@ body {
             font-weight: bold;
             background-color: #ddd;
         }
-        .value {
-            padding-left: .5rem;
+        .simple-value {
+            padding-left: .7rem;
+            padding-right: .5rem;
+        }
+        .toolbar {
+            padding-left: .4rem;
             padding-right: 1rem;
-            white-space: pre-wrap;
-            color: #808;
         }
-        .value.string {
-            color: #080;
-        }
-        .value.complex {
-            color: #880;
-        }
-        .value.link {
-            color: #008;
+    }
+}
+
+.object-table-viewer>table {
+    border-collapse: collapse;
+    td,
+    th {
+        border: 1px solid #ddd;
+        vertical-align: top;
+    }
+    th {
+        background-color: #eee;
+        padding: .1rem .5rem;
+    }
+    td {
+        .simple-value {
+            padding: .1rem .5rem;
         }
     }
 }

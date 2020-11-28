@@ -11,12 +11,16 @@ export function isSimpleType(value: any) {
   return isNullOrUndefined(value) || typeof value !== 'object';
 }
 
-export function isArrayTableType(value: any) {
-  return Array.isArray(value) && value.every(a => !isSimpleType(a));
-}
+export function isTableType(value: {}[] | {}) {
+  if (Array.isArray(value)) {
+    return value.every(a => !isSimpleType(a));
+  }
 
-export function isObjectTableType(value: any) {
-  return typeof value === 'object' && !Array.isArray(value) && Object.values(value).every(a => !isSimpleType(a));
+  if (typeof value === 'object') {
+    return Object.values(value).every(a => !isSimpleType(a));
+  }
+
+  return false;
 }
 
 export function isLink(value: string) {
@@ -51,19 +55,27 @@ export function summarizeComplexValue(value: any) {
 }
 
 export function computeNestingOffset(level: number) {
-  return 1 + 1.6 * level;
+  return 0.5 + 1.5 * level;
 }
 
 export function prettyPrintJson(value: any) {
   return JSON.stringify(value, undefined, 2);
 }
 
-export function getArrayTableColumns(value: {}[]) {
-  return Array.from(new Set(value.flatMap(a => Object.keys(a))));
+export function getTableColumns(table: {}[] | {}) {
+  if (Array.isArray(table)) {
+    return Array.from(new Set(table.flatMap(a => Object.keys(a))));
+  }
+
+  return Array.from(new Set(Object.values(table).flatMap(a => Object.keys(a))));
 }
 
-export function getObjectTableColumns(value: {}) {
-  return Array.from(new Set(Object.values(value).flatMap(a => Object.keys(a))));
+export function getTableRows(table: {}[] | {}) {
+  if (Array.isArray(table)) {
+    return table.map((value, key) => ({ value, key: key.toString() }));
+  }
+
+  return Object.keys(table).map(key => ({ value: table[key], key }));
 }
 
 export async function getLastState(key: string) {
