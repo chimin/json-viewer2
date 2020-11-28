@@ -10,9 +10,11 @@ export const ObjectViewer = (props: { json: any, path: string }) => {
     return <div className="value empty">n/a</div>;
   }
 
-  if (isTableType(props.json)) {
-    return <TableViewer json={props.json} path={props.path} />;
-  }
-
-  return (<>{keys.map(key => <ObjectFieldViewer key={key} name={key} value={props.json[key]} path={`${props.path}/${key}`} />)}</>);
+  return (
+    <>
+      {keys.map(key => (
+        <ObjectFieldViewer key={key} name={key} value={props.json[key]} path={`${props.path}/${key}`} />
+      ))}
+    </>
+  );
 };

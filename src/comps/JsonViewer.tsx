@@ -12,17 +12,17 @@ export const JsonViewer = (props: { json: any, raw: HTMLElement }) => {
     <div className="vertical-panel">
       <div className="horizontal-panel">
         <label>
-          <input type="radio" name="type" value="formatted" checked={showType == 'tree-view'} onChange={() => setShowType('tree-view')} />
+          <input type="radio" checked={showType == 'tree-view'} onChange={() => setShowType('tree-view')} />
           Tree View
         </label>
 
         <label>
-          <input type="radio" name="type" value="raw" checked={showType == 'pretty-print'} onChange={() => setShowType('pretty-print')} />
+          <input type="radio" checked={showType == 'pretty-print'} onChange={() => setShowType('pretty-print')} />
           Pretty Print
         </label>
 
         <label>
-          <input type="radio" name="type" value="raw" checked={showType == 'raw'} onChange={() => setShowType('raw')} />
+          <input type="radio" checked={showType == 'raw'} onChange={() => setShowType('raw')} />
           Raw
         </label>
       </div>
