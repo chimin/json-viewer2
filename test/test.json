@@ -4,6 +4,8 @@
   "number-field": 12345,
   "boolean-field": true,
   "multiline-string-field": "this\nis\nmultiline\nstring",
+  "link-field": "http://www.google.com",
+  "link-field-2": "https://www.google.com",
   "empty-object-field": {},
   "empty-array-field": [],
   "object-field": {
