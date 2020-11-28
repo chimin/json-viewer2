@@ -31,11 +31,12 @@
   "table-field": [
     {
       "col-1": "abc",
-      "col-2": 123
+      "col-2": 999,
+      "col-3": 1
     },
     {
       "col-2": "abc",
-      "col-3": 123
+      "col-3": 3
     },
     {
       "col-4": {
@@ -47,7 +48,7 @@
     },
     {
       "col-1": "abc",
-      "col-3": 123,
+      "col-3": 2,
       "col-4": {
         "table-inner-field": "string_in_a_table_2",
         "table-inner": {

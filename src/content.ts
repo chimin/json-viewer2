@@ -2,8 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { JsonViewer } from './comps/JsonViewer';
 
+setup();
+
 function getJsonElement() {
-  if (document.body.firstElementChild && document.body.firstElementChild == document.body.lastElementChild && document.body.firstElementChild.tagName == 'PRE') {
+  if (document.body.firstElementChild &&
+    document.body.firstElementChild == document.body.lastElementChild &&
+    document.body.firstElementChild.tagName == 'PRE'
+  ) {
     const content = document.body.firstElementChild.textContent;
     if (content.match(/^[{[]/)) {
       return document.body.firstElementChild;
@@ -36,5 +41,3 @@ function setup() {
   document.body.appendChild(container);
   ReactDOM.render(React.createElement(JsonViewer, { json, raw }), container);
 }
-
-setup();

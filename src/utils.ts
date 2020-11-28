@@ -97,3 +97,15 @@ export function useLastStateBoolean(key: string, defaultValue: boolean):
 
   return [value, statefulSetter];
 }
+
+export function useLastStateJson<T>(key: string, defaultValue: T):
+  [T, (value: T) => void] {
+
+  const [value, setter] = useLastState<string>(key, '');
+
+  const transformingSetter = (newValue: T) => (
+    setter(!isNullOrUndefined(newValue) ? JSON.stringify(newValue) : '')
+  );
+
+  return [value ? JSON.parse(value) : defaultValue, transformingSetter];
+}
