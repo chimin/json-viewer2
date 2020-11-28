@@ -1,9 +1,10 @@
 import React from 'react';
 import {
- computeNestingOffset, formatSimpleValue, isSimpleType, useLastStateBoolean,
+  computeNestingOffset, isSimpleType, useLastStateBoolean,
 } from '../utils';
 import { ObjectViewer } from './ObjectViewer';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { ObjectRowValueViewer } from './ObjectRowValueViewer';
 
 export const ObjectRowViewer = ({
   value, label, path, level,
@@ -41,8 +42,8 @@ export const ObjectRowViewer = ({
         }
         <span className="label">{label}</span>
         {
-          valueIsSimpleType ?
-            <span className="value">{formatSimpleValue(value)}</span> :
+          valueIsSimpleType || !isExpanded ?
+            <ObjectRowValueViewer value={value} /> :
             null
         }
       </div>

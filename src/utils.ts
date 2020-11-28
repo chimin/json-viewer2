@@ -19,6 +19,10 @@ export function isObjectTableType(value: any) {
   return typeof value === 'object' && !Array.isArray(value) && Object.values(value).every(a => !isSimpleType(a));
 }
 
+export function isLink(value: string) {
+  return value.match(/^https?:\/\/.*$/);
+}
+
 export function formatSimpleValue(value: any) {
   return value === null ? 'null' : value === undefined ? 'undefined' : value.toString();
 }

@@ -70,6 +70,16 @@ body {
             padding-left: .5rem;
             padding-right: 1rem;
             white-space: pre-wrap;
+            color: #808;
+        }
+        .value.string {
+            color: #080;
+        }
+        .value.complex {
+            color: #880;
+        }
+        .value.link {
+            color: #008;
         }
     }
 }
