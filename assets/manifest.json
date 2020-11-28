@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "JSON Viewer 2",
+  "name": "Pokok JSON Viewer",
   "version": "1.0",
-  "description": "Format the JSON in the browser",
+  "description": "Show the JSON in tree view or table view",
   "content_scripts": [
     {
       "matches": [
