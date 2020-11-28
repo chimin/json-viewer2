@@ -4,7 +4,7 @@ import { ArrayShowType } from '../types';
 export const ArrayToolbar = (props: {
   showType: ArrayShowType, setShowType: (value: ArrayShowType) => void
 }) => (
-    <div className="horizontal-panel">
+    <div className="toolbar-panel horizontal-panel">
       <label>
         <input type="radio" checked={props.showType == 'list'} onChange={() => props.setShowType('list')} />
           List

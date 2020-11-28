@@ -1,5 +1,6 @@
 body {
-    padding: .2rem;
+    padding: 0;
+    margin: 0;
 }
 
 .clickable {
@@ -8,6 +9,7 @@ body {
 
 .horizontal-panel>* {
     margin-right: .5rem;
+    vertical-align: middle;
 }
 
 .vertical-panel>* {
@@ -17,6 +19,26 @@ body {
 .pretty-print-viewer {
     font-family: monospace;
     white-space: pre;
+}
+
+.root-header {
+    padding: .5rem;
+    background-color: #eee;
+}
+
+.root-viewer {
+    margin: .7rem;
+}
+
+.toolbar-panel {
+    color: #888;
+}
+
+.root-viewer .toolbar,
+.table-object-viewer .header .toolbar {
+    padding-bottom: .1rem;
+    border-bottom: 1px solid #bbb;
+    display: inline-block;
 }
 
 .object-field-viewer {
@@ -29,10 +51,11 @@ body {
 
 .object-field-viewer .name {
     font-weight: bold;
-    margin-right: .5rem;
     margin-top: .1rem;
     margin-bottom: .1rem;
     white-space: pre;
+    background-color: #ddd;
+    padding: .1rem .5rem;
 }
 
 .object-field-viewer .button {
@@ -57,14 +80,17 @@ body {
     font-size: .3rem;
 }
 
-.object-field-viewer .value {
+.object-field-viewer .value,
+.table-object-viewer .value {
     display: inline-block;
     margin-top: .1rem;
     margin-bottom: .1rem;
 }
 
 .value {
+    padding: .1rem .3rem;
     color: #008;
+    white-space: pre-wrap;
 }
 
 .value.string {
@@ -73,7 +99,7 @@ body {
 
 .value.simplified,
 .value.empty {
-    color: #888;
+    color: #880;
 }
 
 .object-inner-viewer {
@@ -110,6 +136,7 @@ body {
     margin-right: -.7rem;
     padding-left: .7rem;
     padding-right: .7rem;
+    display: flex;
 }
 
 .table-object-viewer .header:hover {
@@ -124,7 +151,7 @@ body {
     white-space: pre;
 }
 
-.table-object-viewer .hedaer .button:after {
+.table-object-viewer .header .button:after {
     content: '\0020';
 }
 
@@ -132,5 +159,4 @@ body {
     font-size: .7rem;
     color: #888;
     vertical-align: middle;
-    margin-right: .5rem;
 }

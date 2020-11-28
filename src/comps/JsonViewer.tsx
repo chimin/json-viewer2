@@ -1,8 +1,9 @@
 import React from 'react';
-import { useLastState } from '../utils';
+import { isTableType, useLastState } from '../utils';
 import { ObjectViewer } from './ObjectViewer';
 import { PrettyPrintViewer } from './PrettyPrintViewer';
 import { RawViewer } from './RawViewer';
+import { RootViewer } from './RootViewer';
 import './Styles.css';
 
 export const JsonViewer = (props: { json: any, raw: HTMLElement }) => {
@@ -10,15 +11,15 @@ export const JsonViewer = (props: { json: any, raw: HTMLElement }) => {
 
   return (
     <div className="vertical-panel">
-      <div className="horizontal-panel">
+      <div className="root-header horizontal-panel">
         <label>
           <input type="radio" checked={showType == 'tree-view'} onChange={() => setShowType('tree-view')} />
-          Tree View
+          Tree view
         </label>
 
         <label>
           <input type="radio" checked={showType == 'pretty-print'} onChange={() => setShowType('pretty-print')} />
-          Pretty Print
+          Pretty print
         </label>
 
         <label>
@@ -27,7 +28,7 @@ export const JsonViewer = (props: { json: any, raw: HTMLElement }) => {
         </label>
       </div>
       <div>
-        {showType == 'tree-view' ? <ObjectViewer json={props.json} path="" level={0} /> :
+        {showType == 'tree-view' ? <RootViewer json={props.json} /> :
           showType == 'pretty-print' ? <PrettyPrintViewer json={props.json} /> :
             showType == 'raw' ? <RawViewer raw={props.raw} /> :
               null}

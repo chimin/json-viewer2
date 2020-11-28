@@ -1,9 +1,14 @@
 import React from 'react';
 import { getTableColumns, isNullOrUndefined, isValueType, useLastState, useLastStateJson } from '../utils';
+import { EmptyIndicator } from './EmptyIndicator';
 import { TableObjectViewer } from './TableObjectViewer';
 import { ValueViewer } from './ValueViewer';
 
 export const TableViewer = (props: { json: {}[], path: string }) => {
+  if (props.json.length == 0) {
+    return <EmptyIndicator />;
+  }
+
   const [sorts, setSorts] = useLastStateJson<SortInfo[]>(`${props.path}.sorts`, []);
   const columns = getTableColumns(props.json);
 
@@ -14,7 +19,7 @@ export const TableViewer = (props: { json: {}[], path: string }) => {
       .concat({ key, reverse: current ? !current.reverse : false }));
   };
 
-  const rows = sortRows(props, sorts);
+  const rows = sortRows(props.json, sorts);
 
   return (
     <table className="table-viewer">
@@ -50,8 +55,8 @@ interface SortInfo {
   reverse: boolean;
 }
 
-function sortRows(props: { json: {}[]; path: string; }, sorts: SortInfo[]) {
-  const rows = props.json.map((row, index) => ({ data: row, index }));
+function sortRows(list: {}[], sorts: SortInfo[]) {
+  const rows = list.map((row, index) => ({ data: row, index }));
   if (sorts?.length) {
     for (const sort of sorts) {
       rows.sort((a, b) => {
