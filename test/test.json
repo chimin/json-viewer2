@@ -49,7 +49,7 @@
       }
     },
     {
-      "col-1": "abc",
+      "col-1": "xyz",
       "col-3": 2,
       "col-4": {
         "table-inner-field": "string_in_a_table_2",
@@ -80,7 +80,7 @@
       ]
     },
     "z": {
-      "col-1": "abc",
+      "col-1": "cde",
       "col-3": 2,
       "col-4": {
         "table-inner-field": "string_in_a_table_2",

@@ -9,9 +9,11 @@ export const RootViewer = ({ value, path }: {
 }) => (
     <>
       {
-        isSimpleType(value) ?
-          <SimpleValueViewer value={value} /> :
-          <RootObjectViewer value={value} path={path} />
+        value === undefined || value === null ?
+          null :
+          isSimpleType(value) ?
+            <SimpleValueViewer value={value} /> :
+            <RootObjectViewer value={value} path={path} />
       }
     </>
   );

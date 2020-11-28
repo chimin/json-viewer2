@@ -17,7 +17,7 @@ export const JsonViewer = ({ json, raw }: {
       <JsonViewerHeader viewerType={viewerType} setViewerType={setViewerType} />
       <div className="body">
         {
-          viewerType == 'tree-view' ? <RootViewer value={json} /> :
+          viewerType == 'tree-view' ? <RootViewer value={json} path="" /> :
             viewerType == 'pretty-print' ? <PrettyPrintViewer json={json} /> :
               viewerType == 'raw' ? <RawViewer raw={raw} /> :
                 null

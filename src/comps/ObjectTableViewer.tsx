@@ -1,5 +1,5 @@
 import React from 'react';
-import { computeNestingOffset, getTableColumns, getTableRows } from '../utils';
+import { compare, computeNestingOffset, getTableColumns, getTableRows, isNullOrUndefined, useLastStateJson } from '../utils';
 import { RootViewer } from './RootViewer';
 
 export const ObjectTableViewer = ({ value, path, level }: {
@@ -7,17 +7,25 @@ export const ObjectTableViewer = ({ value, path, level }: {
   path: string,
   level: number
 }) => {
+  const [sorts, setSorts] = useLastStateJson<SortInfo[]>(`${path}.sorts`, []);
   const columns = getTableColumns(value);
-  const rows = getTableRows(value);
+  const rows = sortTableRows(getTableRows(value), sorts);
   const paddingLeft = `${computeNestingOffset(level)}rem`;
+
+  const addSort = (column: string) => {
+    const current = sorts.find(a => a.column == column);
+    setSorts(sorts
+      .filter(a => a.column != column)
+      .concat({ column, reverse: current ? !current.reverse : false }));
+  };
 
   return (
     <div className="object-table-viewer" style={{ paddingLeft }}>
       <table>
         <thead>
           <tr>
-            <th>#</th>
-            {columns.map(column => <th key={column}>{column}</th>)}
+            <th className="clickable" onClick={() => setSorts([])}>#</th>
+            {columns.map(column => <th key={column} className="clickable" onClick={() => addSort(column)}>{column}</th>)}
           </tr>
         </thead>
         <tbody>
@@ -38,3 +46,25 @@ export const ObjectTableViewer = ({ value, path, level }: {
     </div>
   );
 };
+
+interface SortInfo {
+  column: string;
+  reverse: boolean;
+}
+
+function sortTableRows(rows: { value: any; key: string; }[], sorts: SortInfo[]) {
+  if (!sorts?.length) {
+    return rows;
+  }
+
+  const sortedRows = rows.slice();
+  for (const sort of sorts) {
+    sortedRows.sort((a, b) => {
+      const va = a.value[sort.column];
+      const vb = b.value[sort.column];
+      const r = compare(va, vb);
+      return sort.reverse ? -r : r;
+    });
+  }
+  return sortedRows;
+}

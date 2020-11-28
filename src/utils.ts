@@ -75,7 +75,16 @@ export function getTableRows(table: {}[] | {}) {
     return table.map((value, key) => ({ value, key: key.toString() }));
   }
 
-  return Object.keys(table).map(key => ({ value: table[key], key }));
+  return Object.keys(table)
+    .map(key => ({ value: table[key], key }))
+    .sort((a, b) => compare(a.key, b.key));
+}
+
+export function compare(a: any, b: any) {
+  return !isNullOrUndefined(a) && isNullOrUndefined(b) ? -1 :
+    isNullOrUndefined(a) && !isNullOrUndefined(b) ? 1 :
+      typeof a === 'string' && typeof b === 'string' ? a.localeCompare(b) :
+        a - b;
 }
 
 export async function getLastState(key: string) {
