@@ -1,5 +1,7 @@
 import React from 'react';
-import { getTableColumns, isNullOrUndefined, isValueType, useLastState, useLastStateJson } from '../utils';
+import {
+ getTableColumns, isNullOrUndefined, isValueType, useLastStateJson,
+} from '../utils';
 import { EmptyIndicator } from './EmptyIndicator';
 import { TableObjectViewer } from './TableObjectViewer';
 import { ValueViewer } from './ValueViewer';

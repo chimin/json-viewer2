@@ -1,6 +1,5 @@
 import React from 'react';
-import { isTableType, useLastState } from '../utils';
-import { ObjectViewer } from './ObjectViewer';
+import { useLastState } from '../utils';
 import { PrettyPrintViewer } from './PrettyPrintViewer';
 import { RawViewer } from './RawViewer';
 import { RootViewer } from './RootViewer';

@@ -1,5 +1,7 @@
 import React from 'react';
-import { isTableType, isValueType, useLastState, useLastStateBoolean } from '../utils';
+import {
+ isTableType, isValueType, useLastState, useLastStateBoolean,
+} from '../utils';
 import { ObjectViewer } from './ObjectViewer';
 import './Styles.css';
 import '@fortawesome/fontawesome-free/css/all.css';
