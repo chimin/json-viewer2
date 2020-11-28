@@ -1,5 +1,15 @@
+/// <reference path="../node_modules/web-ext-types/global/index.d.ts" />
+
+import { useEffect, useState } from "react";
+
+/* global browser */
+
+export function isNullOrUndefined(value: any) {
+  return value === null || value === undefined;
+}
+
 export function isValueType(value: any) {
-  return value === null || value === undefined || typeof value !== 'object';
+  return isNullOrUndefined(value) || typeof value !== 'object';
 }
 
 export function formatValue(value: any) {
@@ -11,23 +21,24 @@ export function formatValue(value: any) {
 export function formatSimplifiedObject(value: any) {
   const allKeys = Object.keys(value);
   if (allKeys.length == 0) {
-    return '';
+    return Array.isArray(value) ? '[]' : '{}';
   }
 
   const simplifiedKeys = allKeys.filter(a => typeof value[a] !== 'object').slice(0, 3);
   if (simplifiedKeys.length == 0) {
-    return '...';
+    return Array.isArray(value) ? '[ ... ]' : '{ ... }';
+
   }
 
   if (Array.isArray(value)) {
     const items = simplifiedKeys.map(a => JSON.stringify(value[a])).join(', ');
-    const ending = allKeys.length > simplifiedKeys.length ? '...' : ']';
-    return `[ ${items} ${ending}`;
+    const ellipse = allKeys.length > simplifiedKeys.length ? '...' : '';
+    return `[ ${items} ${ellipse} ]`;
   }
 
   const items = simplifiedKeys.map(a => `"${a}": ${JSON.stringify(value[a])}`).join(', ');
-  const ending = allKeys.length > simplifiedKeys.length ? '...' : '}';
-  return `{ ${items} ${ending}`;
+  const ellipse = allKeys.length > simplifiedKeys.length ? '...' : '';
+  return `{ ${items} ${ellipse} }`;
 }
 
 export function isTableType(value: any) {
@@ -38,10 +49,51 @@ export function getTableColumns(value: {}[]) {
   return Array.from(new Set(value.flatMap(a => Object.keys(a))));
 }
 
-export function getLastState(key: string) {
-  return localStorage.getItem(`json-viewer2.${key}`);
+export async function getLastState(key: string) {
+  return (await browser.storage.sync.get(key))[key]?.toString();
 }
 
-export function setLastState(key: string, value: string) {
-  localStorage.setItem(`json-viewer2.${key}`, value);
+export async function setLastState(key: string, value: string) {
+  const obj = {};
+  obj[key] = value;
+  await browser.storage.sync.set(obj);
+}
+
+export function useLastState<T extends string>(key: string, defaultValue: T):
+  [T, (value: T) => void] {
+
+  const [value, setter] = useState(defaultValue);
+
+  useEffect(() => {
+    (async () => {
+      setter((await getLastState(key) as T) || defaultValue);
+    })();
+  });
+
+  const statefulSetter = async (newValue: T) => {
+    setter(newValue);
+    await setLastState(key, newValue);
+  };
+
+  return [value, statefulSetter];
+}
+
+export function useLastStateBoolean(key: string, defaultValue: boolean):
+  [boolean, (value: boolean) => void] {
+
+  const [value, setter] = useState(defaultValue);
+
+  useEffect(() => {
+    (async () => {
+      const lastValue = await getLastState(key);
+      setter(!isNullOrUndefined(lastValue) ? lastValue == '1' : defaultValue);
+    })();
+  });
+
+  const statefulSetter = async (newValue: boolean) => {
+    setter(newValue);
+    await setLastState(key, newValue ? '1' : '0');
+  };
+
+  return [value, statefulSetter];
 }

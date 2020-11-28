@@ -1,3 +1,7 @@
+body {
+    padding: .2rem;
+}
+
 .clickable {
     cursor: pointer;
 }
@@ -10,7 +14,7 @@
     margin-bottom: .5rem;
 }
 
-.raw-viewer {
+.pretty-print-viewer {
     font-family: monospace;
     white-space: pre;
 }

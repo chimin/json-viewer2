@@ -37,10 +37,12 @@
     "no-nested-ternary": "off",
     "no-use-before-define": "off",
     "operator-linebreak": "off",
+    "padded-blocks": "off",
     "react/destructuring-assignment": "off",
     "react/jsx-filename-extension": "off",
     "react/jsx-indent": "off",
     "react/no-array-index-key": "off",
+    "react/no-danger": "off",
     "unused-imports/no-unused-imports-ts": "error",
     "unused-imports/no-unused-vars-ts": [
       "warn",

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { getLastState, isValueType, setLastState } from '../utils';
+import React from 'react';
+import { isValueType, useLastStateBoolean } from '../utils';
 import { ObjectViewer } from './ObjectViewer';
 import './Styles.css';
 import '@fortawesome/fontawesome-free/css/all.css';
@@ -7,13 +7,8 @@ import { ValueViewer } from './ValueViewer';
 import { SimplifiedOjectViewer } from './SimplifiedObjectViewer';
 
 export const ObjectFieldViewer = (props: { name: string, value: any, path: string }) => {
-  const [isExpanded, setExpanded] = useState(getLastState(`${props.path}.isExpanded`) == '1');
+  const [isExpanded, setExpanded] = useLastStateBoolean(`${props.path}.isExpanded`, false);
   const valueType = isValueType(props.value);
-
-  const updateExpanded = value => {
-    setExpanded(value);
-    setLastState(`${props.path}.isExpanded`, value ? '1' : '0');
-  };
 
   return (
     <>
@@ -21,8 +16,8 @@ export const ObjectFieldViewer = (props: { name: string, value: any, path: strin
         <span className="name">
           {!valueType ?
             (isExpanded ?
-              <i className="fas fa-chevron-down clickable" onClick={() => updateExpanded(false)} /> :
-              <i className="fas fa-chevron-right clickable" onClick={() => updateExpanded(true)} />) :
+              <i className="fas fa-chevron-down clickable" onClick={() => setExpanded(false)} /> :
+              <i className="fas fa-chevron-right clickable" onClick={() => setExpanded(true)} />) :
             <i className="far fa-circle" />}
           {props.name}
         </span>

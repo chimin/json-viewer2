@@ -12,6 +12,7 @@ module.exports = {
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '',
   },
   module: {
     rules: [
@@ -24,7 +25,8 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       }, {
         test: /\.(png|jpe?g|gif|svg|ttf|woff2?|eot)$/i,
-        use: 'file-loader',
+        loader: 'file-loader',
+        options: { postTransformPublicPath: p => `browser.runtime.getURL(${p})` },
       },
     ],
   },
@@ -35,6 +37,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         { from: 'assets' },
+        { from: 'node_modules/webextension-polyfill/dist/browser-polyfill.min.js' },
         { from: 'dist', to: '../test/dist' },
         { from: 'test/index.html', to: '../test/dist' },
       ],
