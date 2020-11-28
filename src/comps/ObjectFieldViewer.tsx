@@ -26,24 +26,35 @@ export const ObjectFieldViewer = (props: { name: string, value: any, path: strin
           marginRight: `-${sidePositionOffset}rem`,
         }}
       >
+        {!valueType ?
+          (isExpanded ?
+            (
+              <span
+                className="button clickable"
+                style={{ paddingLeft: `${leftPositionOffset}rem` }}
+                onClick={() => setExpanded(false)}
+              >
+                <i className="fas fa-chevron-down " />
+              </span>
+            ) :
+            (
+              <span
+                className="button clickable"
+                style={{ paddingLeft: `${leftPositionOffset}rem` }}
+                onClick={() => setExpanded(true)}
+              >
+                <i className="fas fa-chevron-right " />
+              </span>
+            )) :
+          (
+            <span
+              className="button"
+              style={{ paddingLeft: `${leftPositionOffset}rem` }}
+            >
+              <i className="far fa-circle" />
+            </span>
+          )}
         <span className="name">
-          {!valueType ?
-            (isExpanded ?
-              (
-                <i
-                  className="fas fa-chevron-down clickable"
-                  style={{ paddingLeft: `${leftPositionOffset}rem` }}
-                  onClick={() => setExpanded(false)}
-                />
-              ) :
-              (
-                <i
-                  className="fas fa-chevron-right clickable"
-                  style={{ paddingLeft: `${leftPositionOffset}rem` }}
-                  onClick={() => setExpanded(true)}
-                />
-              )) :
-            <i className="far fa-circle" style={{ paddingLeft: `${leftPositionOffset}rem` }} />}
           {props.name}
         </span>
         <span style={{ paddingRight: `${sidePositionOffset}rem` }}>

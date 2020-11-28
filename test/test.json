@@ -38,12 +38,20 @@
       "col-3": 123
     },
     {
-      "col-1": "abc",
-      "col-3": 123,
       "col-4": {
         "table-inner-field": "string_in_a_table",
         "table-inner": {
           "table-inner-inner-field": "string_in_an_object_in_a_table"
+        }
+      }
+    },
+    {
+      "col-1": "abc",
+      "col-3": 123,
+      "col-4": {
+        "table-inner-field": "string_in_a_table_2",
+        "table-inner": {
+          "table-inner-inner-field": "string_in_an_object_in_a_table_2"
         }
       }
     }

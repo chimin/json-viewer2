@@ -35,19 +35,25 @@ body {
     white-space: pre;
 }
 
-.object-field-viewer .name:after {
+.object-field-viewer .button {
+    margin-top: .1rem;
+    margin-bottom: .1rem;
+    white-space: pre;
+}
+
+.object-field-viewer .button:after {
     content: '\0020';
 }
 
-.object-field-viewer .name .fas,
-.object-field-viewer .name .far {
+.object-field-viewer .button .fas,
+.object-field-viewer .button .far {
     font-size: .7rem;
     width: 1rem;
     color: #888;
     vertical-align: middle;
 }
 
-.object-field-viewer .name .far.fa-circle {
+.object-field-viewer .button .far.fa-circle {
     font-size: .3rem;
 }
 
@@ -95,16 +101,30 @@ body {
     margin-right: .2rem;
 }
 
-.table-object-viewer .button {
-    margin-top: .1rem;
-    margin-bottom: .1rem;
+.table-object-viewer .header {
+    margin-left: -.7rem;
+    margin-right: -.7rem;
+    padding-left: .7rem;
+    padding-right: .7rem;
 }
 
-.table-object-viewer .button:after {
+.table-object-viewer .header:hover {
+    background-color: #eee;
+}
+
+.table-object-viewer .header .button {
+    margin-left: -.7rem;
+    margin-top: .1rem;
+    margin-bottom: .1rem;
+    padding-left: .7rem;
+    white-space: pre;
+}
+
+.table-object-viewer .hedaer .button:after {
     content: '\0020';
 }
 
-.table-object-viewer .button .fas {
+.table-object-viewer .header .button .fas {
     font-size: .7rem;
     color: #888;
     vertical-align: middle;

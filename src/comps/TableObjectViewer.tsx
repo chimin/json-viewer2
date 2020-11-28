@@ -8,11 +8,21 @@ export const TableObjectViewer = (props: { json: any, path: string }) => {
 
   return (
     <div className="table-object-viewer">
-      <div className="button">
+      <div className="header">
         {isExpanded ?
-          <i className="fas fa-chevron-down clickable" onClick={() => setExpanded(false)} /> :
-          <i className="fas fa-chevron-right clickable" onClick={() => setExpanded(true)} />}
-        {!isExpanded ? <SimplifiedOjectViewer json={props.json} /> : null}
+          (
+            <span className="button clickable" onClick={() => setExpanded(false)}>
+              <i className="fas fa-chevron-down clickable" />
+            </span>
+          ) :
+          (
+            <span className="button clickable" onClick={() => setExpanded(true)}>
+              <i className="fas fa-chevron-right clickable" />
+            </span>
+          )}
+        <span>
+          {!isExpanded ? <SimplifiedOjectViewer json={props.json} /> : null}
+        </span>
       </div>
       {isExpanded ? <ObjectViewer json={props.json} path={props.path} level={0} /> : null}
     </div>
