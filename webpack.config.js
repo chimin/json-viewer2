@@ -24,6 +24,9 @@ module.exports = {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       }, {
+        test: /\.s[ac]ss$/i,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      }, {
         test: /\.(png|jpe?g|gif|svg|ttf|woff2?|eot)$/i,
         loader: 'file-loader',
         options: { postTransformPublicPath: p => `browser.runtime.getURL(${p})` },

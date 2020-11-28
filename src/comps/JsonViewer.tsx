@@ -1,36 +1,27 @@
 import React from 'react';
+import { JsonShowType } from '../types';
 import { useLastState } from '../utils';
+import { RootViewer } from './RootViewer';
+import { JsonViewerHeader } from './JsonViewerHeader';
 import { PrettyPrintViewer } from './PrettyPrintViewer';
 import { RawViewer } from './RawViewer';
-import { RootViewer } from './RootViewer';
-import './Styles.css';
 
-export const JsonViewer = (props: { json: any, raw: HTMLElement }) => {
-  const [showType, setShowType] = useLastState<'raw' | 'pretty-print' | 'tree-view'>('showType', 'raw');
+export const JsonViewer = ({ json, raw }: {
+  json: any,
+  raw: HTMLElement,
+}) => {
+  const [showType, setShowType] = useLastState<JsonShowType>('jsonShowType', 'raw');
 
   return (
-    <div className="vertical-panel">
-      <div className="root-header horizontal-panel">
-        <label>
-          <input type="radio" checked={showType == 'tree-view'} onChange={() => setShowType('tree-view')} />
-          Tree view
-        </label>
-
-        <label>
-          <input type="radio" checked={showType == 'pretty-print'} onChange={() => setShowType('pretty-print')} />
-          Pretty print
-        </label>
-
-        <label>
-          <input type="radio" checked={showType == 'raw'} onChange={() => setShowType('raw')} />
-          Raw
-        </label>
-      </div>
-      <div>
-        {showType == 'tree-view' ? <RootViewer json={props.json} /> :
-          showType == 'pretty-print' ? <PrettyPrintViewer json={props.json} /> :
-            showType == 'raw' ? <RawViewer raw={props.raw} /> :
-              null}
+    <div className="json-viewer">
+      <JsonViewerHeader showType={showType} setShowType={setShowType} />
+      <div className="body">
+        {
+          showType == 'tree-view' ? <RootViewer value={json} /> :
+            showType == 'pretty-print' ? <PrettyPrintViewer json={json} /> :
+              showType == 'raw' ? <RawViewer raw={raw} /> :
+                null
+        }
       </div>
     </div>
   );

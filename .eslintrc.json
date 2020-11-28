@@ -49,6 +49,7 @@
     "react/jsx-no-target-blank": "off",
     "react/no-array-index-key": "off",
     "react/no-danger": "off",
+    "react/prop-types": "off",
     "unused-imports/no-unused-imports-ts": "error",
     "unused-imports/no-unused-vars-ts": [
       "warn",

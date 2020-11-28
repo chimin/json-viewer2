@@ -1,7 +1,9 @@
 import React from 'react';
-import './Styles.css';
+import { prettyPrintJson } from '../utils';
+import './Styles.scss';
 
-export const PrettyPrintViewer = (props: { json: any }) => {
-  const raw = JSON.stringify(props.json, undefined, 2);
-  return <div className="pretty-print-viewer">{raw}</div>;
-};
+export const PrettyPrintViewer = ({ json }: {
+  json: any
+}) => (
+    <div className="pretty-print-viewer">{prettyPrintJson(json)}</div>
+  );

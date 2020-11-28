@@ -1,41 +1,20 @@
 import React from 'react';
-import './Styles.css';
-import { ObjectFieldViewer } from './ObjectFieldViewer';
-import { ObjectArrayViewer } from './ObjectArrayViewer';
 import { EmptyIndicator } from './EmptyIndicator';
+import { ObjectRowViewer } from './ObjectRowViewer';
 
-export const ObjectViewer = (props: { json: any, path: string, level: number, sort: boolean }) => {
-  if (Array.isArray(props.json)) {
-    return (
-      <ObjectArrayViewer
-        json={props.json}
-        path={props.path}
-        level={props.level}
-        sort={props.sort}
-      />
-    );
-  }
-
-  const keys = Object.keys(props.json);
+export const ObjectViewer = ({ value, path, level }: {
+  value: any,
+  path: string,
+  level: number
+}) => {
+  const keys = Object.keys(value);
   if (keys.length == 0) {
-    return <EmptyIndicator />;
-  }
-
-  if (props.sort) {
-    keys.sort();
+    return <EmptyIndicator level={level} />;
   }
 
   return (
     <>
-      {keys.map(key => (
-        <ObjectFieldViewer
-          key={key}
-          name={key}
-          json={props.json[key]}
-          path={`${props.path}/${key}`}
-          level={props.level}
-        />
-      ))}
+      {keys.map(key => <ObjectRowViewer key={key} value={value[key]} label={key} path={path} level={level} />)}
     </>
   );
 };

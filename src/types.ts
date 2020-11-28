@@ -1,1 +1,1 @@
-export type ArrayShowType = 'list' | 'table';
+export type JsonShowType = 'tree-view' | 'pretty-print' | 'raw';

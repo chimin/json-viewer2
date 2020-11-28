@@ -1,24 +1,29 @@
 /// <reference path="../node_modules/web-ext-types/global/index.d.ts" />
+/* global browser */
 
 import { useEffect, useState } from 'react';
-
-/* global browser */
 
 export function isNullOrUndefined(value: any) {
   return value === null || value === undefined;
 }
 
-export function isValueType(value: any) {
+export function isSimpleType(value: any) {
   return isNullOrUndefined(value) || typeof value !== 'object';
 }
 
-export function formatValue(value: any) {
-  return value === null ? 'null' :
-    value === undefined ? 'undefined' :
-      value.toString();
+export function isArrayTableType(value: any) {
+  return Array.isArray(value) && value.every(a => !isSimpleType(a));
 }
 
-export function formatSimplifiedObject(value: any) {
+export function isObjectTableType(value: any) {
+  return typeof value === 'object' && !Array.isArray(value) && Object.values(value).every(a => !isSimpleType(a));
+}
+
+export function formatSimpleValue(value: any) {
+  return value === null ? 'null' : value === undefined ? 'undefined' : value.toString();
+}
+
+export function summarizeComplexValue(value: any) {
   const allKeys = Object.keys(value);
   if (allKeys.length == 0) {
     return Array.isArray(value) ? '[]' : '{}';
@@ -41,12 +46,20 @@ export function formatSimplifiedObject(value: any) {
   return `{ ${items} ${ellipse} }`;
 }
 
-export function isTableType(value: any) {
-  return Array.isArray(value) && value.every(a => !isValueType(a));
+export function computeNestingOffset(level: number) {
+  return 1 + 1.6 * level;
 }
 
-export function getTableColumns(value: {}[]) {
+export function prettyPrintJson(value: any) {
+  return JSON.stringify(value, undefined, 2);
+}
+
+export function getArrayTableColumns(value: {}[]) {
   return Array.from(new Set(value.flatMap(a => Object.keys(a))));
+}
+
+export function getObjectTableColumns(value: {}) {
+  return Array.from(new Set(Object.values(value).flatMap(a => Object.keys(a))));
 }
 
 export async function getLastState(key: string) {

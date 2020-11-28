@@ -1,5 +1,7 @@
 import React from 'react';
 
-export const RawViewer = (props: { raw: HTMLElement }) => (
-  <div dangerouslySetInnerHTML={{ __html: props.raw.outerHTML }} />
-);
+export const RawViewer = ({ raw }: {
+  raw: HTMLElement
+}) => (
+    <div className="raw-viewer" dangerouslySetInnerHTML={{ __html: raw.outerHTML }} />
+  );
