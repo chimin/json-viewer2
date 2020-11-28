@@ -12,6 +12,10 @@ body {
     vertical-align: middle;
 }
 
+.horizontal-panel label input[type=radio] {
+    margin-right: .3rem;
+}
+
 .vertical-panel>* {
     margin-bottom: .5rem;
 }
@@ -88,8 +92,8 @@ body {
 }
 
 .value {
-    padding: .1rem .3rem;
-    color: #008;
+    padding: .1rem .5rem;
+    color: #808;
     white-space: pre-wrap;
 }
 
@@ -129,6 +133,8 @@ body {
 .table-object-viewer {
     margin-left: .2rem;
     margin-right: .2rem;
+    margin-top: -.2rem;
+    margin-bottom: -.2rem;
 }
 
 .table-object-viewer .header {
