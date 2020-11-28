@@ -23,6 +23,10 @@ body {
     display: flex;
 }
 
+.object-field-viewer:hover {
+    background-color: #eee;
+}
+
 .object-field-viewer .name {
     font-weight: bold;
     margin-right: .5rem;
@@ -48,7 +52,7 @@ body {
 }
 
 .object-field-viewer .value {
-    white-space: pre;
+    display: inline-block;
     margin-top: .1rem;
     margin-bottom: .1rem;
 }
@@ -84,6 +88,11 @@ body {
 
 .table-viewer th {
     background-color: #eee;
+}
+
+.table-object-viewer {
+    margin-left: .2rem;
+    margin-right: .2rem;
 }
 
 .table-object-viewer .button {

@@ -14,7 +14,8 @@
     "inner-number-field": 99999,
     "inner-boolean-field": false,
     "inner-object-field": {
-      "inner-inner-string-field": "this_is_another_another_string",
+      "inner-inner-string-field": "this_is_another_another_string_and_it_is_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_long",
+      "inner-inner-string-field-2": "this is another another string with space and it is very very very very very very very very very very very very very very very very very very very long",
       "inner-inner-number-field": 11111,
       "inner-inner-boolean-field": true
     }

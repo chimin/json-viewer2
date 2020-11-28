@@ -27,7 +27,7 @@ export const JsonViewer = (props: { json: any, raw: HTMLElement }) => {
         </label>
       </div>
       <div>
-        {showType == 'tree-view' ? <ObjectViewer json={props.json} path="" /> :
+        {showType == 'tree-view' ? <ObjectViewer json={props.json} path="" level={0} /> :
           showType == 'pretty-print' ? <PrettyPrintViewer json={props.json} /> :
             showType == 'raw' ? <RawViewer raw={props.raw} /> :
               null}

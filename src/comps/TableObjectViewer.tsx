@@ -14,7 +14,7 @@ export const TableObjectViewer = (props: { json: any, path: string }) => {
           <i className="fas fa-chevron-right clickable" onClick={() => setExpanded(true)} />}
         {!isExpanded ? <SimplifiedOjectViewer json={props.json} /> : null}
       </div>
-      {isExpanded ? <ObjectViewer json={props.json} path={props.path} /> : null}
+      {isExpanded ? <ObjectViewer json={props.json} path={props.path} level={0} /> : null}
     </div>
   );
 };
