@@ -8,7 +8,7 @@ export const ObjectActionBullet = ({
   setExpanded: (value: boolean) => void,
   paddingLeft: string
 }) => (
-    <>
+    <span className="object-action-bullet">
       {
         valueIsSimpleType ?
           (
@@ -28,5 +28,5 @@ export const ObjectActionBullet = ({
               </span>
             )
       }
-    </>
+    </span>
   );

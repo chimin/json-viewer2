@@ -1,5 +1,6 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
+const CopyBundlePlugin = require('webpack-copy-bundle');
 
 module.exports = {
   entry: {
@@ -41,12 +42,14 @@ module.exports = {
       patterns: [
         { from: 'assets' },
         { from: 'node_modules/webextension-polyfill/dist/browser-polyfill.min.js' },
-        { from: 'dist', to: '../test/dist' },
         { from: 'test/index.html', to: '../test/dist' },
       ],
     }),
+    new CopyBundlePlugin({
+      content: './test/dist',
+    }),
   ],
   watchOptions: {
-    ignored: 'dist/**',
+    ignored: ['dist/**', 'test/dist/**', 'out/**'],
   },
 };

@@ -16,12 +16,35 @@ body {
 }
 
 .selection-panel {
-    color: #888;
+    color: #bbb;
     >* {
         margin-right: .3rem;
         input {
             margin-right: .3rem;
         }
+    }
+    .icon {
+        margin-right: 0;
+        padding: 0 .1rem;
+        white-space: pre;
+        input {
+            display: none;
+        }
+        i {
+            font-size: .7rem;
+        }
+    }
+    .icon.checked {
+        color: #000;
+    }
+    .icon:before {
+        content: '\0020';
+    }
+    .icon:after {
+        content: '\0020';
+    }
+    .icon:hover {
+        background-color: #ddd;
     }
 }
 
@@ -101,28 +124,31 @@ body {
     }
 }
 
+.object-action-bullet {
+    .icon {
+        white-space: pre;
+        min-width: 1rem;
+        text-align: center;
+        padding-right: .5rem;
+        .fa-circle {
+            font-size: .3rem;
+            transform: translateY(-.15rem);
+        }
+        .fa-chevron-right,
+        .fa-chevron-down {
+            font-size: .7rem;
+        }
+    }
+    .icon:after {
+        content: '\0020';
+    }
+}
+
 .object-row-viewer {
     .value-row {
         padding-top: .1rem;
         padding-bottom: .1rem;
         display: flex;
-        .icon {
-            white-space: pre;
-            min-width: 1rem;
-            text-align: center;
-            padding-right: .5rem;
-            .fa-circle {
-                font-size: .3rem;
-                transform: translateY(-.15rem);
-            }
-            .fa-chevron-right,
-            .fa-chevron-down {
-                font-size: .7rem;
-            }
-        }
-        .icon:after {
-            content: '\0020';
-        }
         .label {
             padding-left: .5rem;
             padding-right: .5rem;

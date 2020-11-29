@@ -1,8 +1,8 @@
 {
   "scripts": {
     "build": "npm-run-all --serial build:webpack build:zip",
-    "build:webpack": "webpack",
-    "build:zip": "mkdirp ./out && cross-zip ./dist ./out/dist.zip",
+    "build:webpack": "del-cli -f dist && make-dir dist && webpack",
+    "build:zip": "del-cli -f out && make-dir out && cross-zip ./dist ./out/dist.zip",
     "dev": "npm-run-all --parallel dev:extension dev:test",
     "dev:extension": "webpack --watch --devtool inline-source-map --mode development",
     "dev:test": "watch-http-server ./test/dist -c-1 -s",
@@ -17,6 +17,7 @@
     "copy-webpack-plugin": "^6.3.2",
     "cross-zip-cli": "^1.0.0",
     "css-loader": "^5.0.1",
+    "del-cli": "^3.0.1",
     "eslint": "^7.14.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.22.1",
@@ -25,7 +26,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-unused-imports": "^1.0.1",
     "file-loader": "^6.2.0",
-    "mkdirp": "^1.0.4",
+    "make-dir-cli": "^2.0.0",
     "npm-run-all": "^4.1.5",
     "sass": "^1.29.0",
     "sass-loader": "^10.1.0",
@@ -35,7 +36,8 @@
     "watch-http-server": "^0.7.6",
     "web-ext-types": "^3.2.1",
     "webpack": "^5.7.0",
-    "webpack-cli": "^4.2.0"
+    "webpack-cli": "^4.2.0",
+    "webpack-copy-bundle": "^0.3.4"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",

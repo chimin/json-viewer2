@@ -3,6 +3,9 @@
   "name": "Pokok JSON Viewer",
   "version": "1.0",
   "description": "Show the JSON in tree view or table view",
+  "icons": {
+    "128": "icon.png"
+  },
   "content_scripts": [
     {
       "matches": [
