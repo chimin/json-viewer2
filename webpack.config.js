@@ -50,6 +50,6 @@ module.exports = {
     }),
   ],
   watchOptions: {
-    ignored: ['dist/**', 'test/dist/**', 'out/**'],
+    ignored: ['node_modules/**', 'dist/**', 'test/dist/**', 'out/**'],
   },
 };

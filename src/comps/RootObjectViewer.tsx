@@ -1,22 +1,50 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { ObjectRowSortType, ValueMetadata, ValueViewerType } from '../types';
 import { isTableType, useLastState, useLastStateBoolean } from '../utils';
 import { ObjectActionBullet } from './ObjectActionBullet';
 import { ObjectRowSortTypeSelection } from './ObjectRowSortTypeSelection';
 import { ObjectViewer } from './ObjectViewer';
 import { SimpleValueViewer } from './SimpleValueViewer';
+import { TreeActionContext } from './TreeActionContext';
+import { TreeActionPanel } from './TreeActionPanel';
 import { ValueViewerTypeSelection } from './ValueViewerTypeSelection';
 
 export const RootObjectViewer = ({ value, valueMetadata }: {
   value: any,
   valueMetadata: ValueMetadata
 }) => {
+  const treeActionContext = useContext(TreeActionContext);
   const { path } = valueMetadata;
   const [isExpanded, setExpanded] = useLastStateBoolean(`${path}.isExpanded`, false);
   const [valueViewerType, setValueViewerType] = useLastState<ValueViewerType>(`${path}.valueViewerType`, 'tree-view');
   const [sortType, setSortType] = useLastState<ObjectRowSortType>(`${path}.sortType`, 'default');
   const valueIsTableType = isTableType(value);
   const effectiveValueViewerType = valueIsTableType ? valueViewerType : 'tree-view';
+
+  useEffect(() => {
+    if (matchPath(path, treeActionContext.action)) {
+      switch (treeActionContext.action.type) {
+        case 'collapse-all':
+          if (isExpanded) {
+            setExpanded(false);
+            treeActionContext.action.registerInProgress(path);
+          } else {
+            treeActionContext.action.registerCompleted(path);
+          }
+          break;
+        case 'expand-all':
+          if (!isExpanded) {
+            setExpanded(true);
+            treeActionContext.action.registerInProgress(path);
+          } else {
+            treeActionContext.action.registerCompleted(path);
+          }
+          break;
+        default:
+          break;
+      }
+    }
+  }, [treeActionContext.action, isExpanded]);
 
   return (
     <div className="root-object-viewer">
@@ -51,6 +79,10 @@ export const RootObjectViewer = ({ value, valueMetadata }: {
                   ) :
                   null
               }
+              <TreeActionPanel
+                onClickCollapseAll={() => treeActionContext.triggerAction('collapse-all', path)}
+                onClickExpandAll={() => treeActionContext.triggerAction('expand-all', path)}
+              />
             </span>
           ) : null
         }
@@ -72,3 +104,7 @@ export const RootObjectViewer = ({ value, valueMetadata }: {
     </div>
   );
 };
+
+function matchPath(path: string, action: TreeAction) {
+  return action && path.startsWith(action.path) && path.length > action.path.length;
+}

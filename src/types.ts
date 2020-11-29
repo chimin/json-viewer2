@@ -13,3 +13,12 @@ export const defaultValueMetadata: ValueMetadata = {
   label: '',
   level: 0,
 };
+
+export type TreeActionType = 'expand-all' | 'collapse-all';
+
+export interface TreeAction {
+  type: TreeActionType;
+  path: string;
+  registerInProgress: (path: string) => void;
+  registerCompleted: (path: string) => void;
+}

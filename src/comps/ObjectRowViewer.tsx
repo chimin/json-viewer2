@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   buildJsonPath,
   computeNestingOffset, isSimpleType, isTableType, useLastState, useLastStateBoolean,
@@ -7,14 +7,17 @@ import { ObjectViewer } from './ObjectViewer';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { SimpleValueViewer } from './SimpleValueViewer';
 import { ValueViewerTypeSelection } from './ValueViewerTypeSelection';
-import { ObjectRowSortType, ValueMetadata, ValueViewerType } from '../types';
+import { ObjectRowSortType, TreeAction, ValueMetadata, ValueViewerType } from '../types';
 import { ObjectActionBullet } from './ObjectActionBullet';
 import { ObjectRowSortTypeSelection } from './ObjectRowSortTypeSelection';
+import { TreeActionPanel } from './TreeActionPanel';
+import { TreeActionContext } from './TreeActionContext';
 
 export const ObjectRowViewer = ({ value, valueMetadata }: {
   value: any,
   valueMetadata: ValueMetadata
 }) => {
+  const treeActionContext = useContext(TreeActionContext);
   const { path, label, level } = valueMetadata;
   const [isExpanded, setExpanded] = useLastStateBoolean(`${path}.isExpanded`, false);
   const [valueViewerType, setValueViewerType] = useLastState<ValueViewerType>(`${path}.valueViewerType`, 'tree-view');
@@ -23,6 +26,31 @@ export const ObjectRowViewer = ({ value, valueMetadata }: {
   const valueIsTableType = !valueIsSimpleType && isTableType(value);
   const effectiveValueViewerType = valueIsTableType ? valueViewerType : 'tree-view';
   const iconPaddingLeft = `${computeNestingOffset(level)}rem`;
+
+  useEffect(() => {
+    if (matchPath(path, treeActionContext.action)) {
+      switch (treeActionContext.action.type) {
+        case 'collapse-all':
+          if (isExpanded) {
+            setExpanded(false);
+            treeActionContext.action.registerInProgress(path);
+          } else {
+            treeActionContext.action.registerCompleted(path);
+          }
+          break;
+        case 'expand-all':
+          if (!isExpanded) {
+            setExpanded(true);
+            treeActionContext.action.registerInProgress(path);
+          } else {
+            treeActionContext.action.registerCompleted(path);
+          }
+          break;
+        default:
+          break;
+      }
+    }
+  }, [treeActionContext.action, isExpanded]);
 
   return (
     <div className="object-row-viewer">
@@ -55,8 +83,16 @@ export const ObjectRowViewer = ({ value, valueMetadata }: {
                       setSortType={setSortType}
                       field={Array.isArray(value) ? 'value' : 'label'}
                     />
-                  ) :
-                  null
+                  ) : null
+              }
+              {
+                !valueIsSimpleType ?
+                  (
+                    <TreeActionPanel
+                      onClickCollapseAll={() => treeActionContext.triggerAction('collapse-all', path)}
+                      onClickExpandAll={() => treeActionContext.triggerAction('expand-all', path)}
+                    />
+                  ) : null
               }
             </span>
           ) : null
@@ -77,3 +113,7 @@ export const ObjectRowViewer = ({ value, valueMetadata }: {
     </div>
   );
 };
+
+function matchPath(path: string, action: TreeAction) {
+  return action && path.startsWith(action.path) && path.length > action.path.length;
+}

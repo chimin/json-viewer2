@@ -118,13 +118,21 @@ export function useLastState<T extends string>(key: string, defaultValue: T):
 
   const [value, setter] = useState(defaultValue);
 
+  let cancelInit = false;
   useEffect(() => {
     (async () => {
-      setter((await getLastState(key) as T) || defaultValue);
+      const lastValue = await getLastState(key) as T;
+      if (!cancelInit && lastValue) {
+        setter(lastValue || defaultValue);
+      }
     })();
+    return () => {
+      cancelInit = true;
+    };
   });
 
   const statefulSetter = async (newValue: T) => {
+    cancelInit = true;
     setter(newValue);
     await setLastState(key, newValue);
   };
@@ -137,14 +145,21 @@ export function useLastStateBoolean(key: string, defaultValue: boolean):
 
   const [value, setter] = useState(defaultValue);
 
+  let cancelInit = false;
   useEffect(() => {
     (async () => {
       const lastValue = await getLastState(key);
-      setter(!isNullOrUndefined(lastValue) ? lastValue == '1' : defaultValue);
+      if (!cancelInit) {
+        setter(!isNullOrUndefined(lastValue) ? lastValue == '1' : defaultValue);
+      }
     })();
+    return () => {
+      cancelInit = true;
+    };
   });
 
   const statefulSetter = async (newValue: boolean) => {
+    cancelInit = true;
     setter(newValue);
     await setLastState(key, newValue ? '1' : '0');
   };

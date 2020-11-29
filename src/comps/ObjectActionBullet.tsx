@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { TreeActionContext } from './TreeActionContext';
 
 export const ObjectActionBullet = ({
   valueIsSimpleType, isExpanded, setExpanded, paddingLeft,
@@ -7,7 +8,15 @@ export const ObjectActionBullet = ({
   isExpanded: boolean,
   setExpanded: (value: boolean) => void,
   paddingLeft: string
-}) => (
+}) => {
+  const treeActionContext = useContext(TreeActionContext);
+
+  const updateExpanded = (newValue: boolean) => {
+    treeActionContext.stopAction();
+    setExpanded(newValue);
+  };
+
+  return (
     <span className="object-action-bullet">
       {
         valueIsSimpleType ?
@@ -18,15 +27,16 @@ export const ObjectActionBullet = ({
           ) :
           isExpanded ?
             (
-              <span className="icon clickable" style={{ paddingLeft }} onClick={() => setExpanded(false)} title="Collapse">
+              <span className="icon clickable" style={{ paddingLeft }} onClick={() => updateExpanded(false)} title="Collapse">
                 <i className="fas fa-chevron-down" />
               </span>
             ) :
             (
-              <span className="icon clickable" style={{ paddingLeft }} onClick={() => setExpanded(true)} title="Expand">
+              <span className="icon clickable" style={{ paddingLeft }} onClick={() => updateExpanded(true)} title="Expand">
                 <i className="fas fa-chevron-right" />
               </span>
             )
       }
     </span>
   );
+};
