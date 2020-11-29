@@ -104,32 +104,30 @@ body {
         padding-top: .1rem;
         padding-bottom: .1rem;
         display: flex;
-        .icon {
-            white-space: pre;
-            min-width: 1rem;
-            text-align: center;
-            padding-right: .5rem;
-            .fa-circle {
-                font-size: .3rem;
-                transform: translateY(-.15rem);
-            }
-            .fa-chevron-right,
-            .fa-chevron-down {
-                font-size: .7rem;
+        .object-action-bullet {
+            .icon {
+                color: #000;
             }
         }
-        .icon:after {
-            content: '\0020';
+        .toolbar {
+            display: none;
+        }
+    }
+    .header-row:hover {
+        .toolbar {
+            display: initial;
         }
     }
 }
 
 .object-action-bullet {
+    color: #888;
     .icon {
         white-space: pre;
         min-width: 1rem;
         text-align: center;
         padding-right: .5rem;
+        display: inline-block;
         .fa-circle {
             font-size: .3rem;
             transform: translateY(-.15rem);
@@ -162,6 +160,12 @@ body {
         .toolbar {
             padding-left: .4rem;
             padding-right: 1rem;
+            display: none;
+        }
+    }
+    .value-row:hover {
+        .toolbar {
+            display: initial;
         }
     }
 }

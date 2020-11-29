@@ -23,7 +23,7 @@ export const ObjectViewer = ({
 
   return (
     <>
-      {keys.map(key => <ObjectRowViewer key={key} value={value[key]} label={key} path={path} level={level} />)}
+      {keys.map(key => <ObjectRowViewer key={key} value={value[key]} label={key} path={`${path}/${key}`} level={level} />)}
     </>
   );
 };

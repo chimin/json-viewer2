@@ -18,12 +18,12 @@ export const ObjectActionBullet = ({
           ) :
           isExpanded ?
             (
-              <span className="icon clickable" style={{ paddingLeft }} onClick={() => setExpanded(false)}>
+              <span className="icon clickable" style={{ paddingLeft }} onClick={() => setExpanded(false)} title="Collapse">
                 <i className="fas fa-chevron-down" />
               </span>
             ) :
             (
-              <span className="icon clickable" style={{ paddingLeft }} onClick={() => setExpanded(true)}>
+              <span className="icon clickable" style={{ paddingLeft }} onClick={() => setExpanded(true)} title="Expand">
                 <i className="fas fa-chevron-right" />
               </span>
             )

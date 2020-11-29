@@ -7,15 +7,15 @@ export const JsonViewerHeader = ({ viewerType, setViewerType }: {
 }) => (
     <div className="json-viewer-header">
       <label>
-        <input type="radio" checked={viewerType == 'tree-view'} onClick={() => setViewerType('tree-view')} />
+        <input type="radio" checked={viewerType == 'tree-view'} onChange={() => setViewerType('tree-view')} />
         Tree view
       </label>
       <label>
-        <input type="radio" checked={viewerType == 'pretty-print'} onClick={() => setViewerType('pretty-print')} />
+        <input type="radio" checked={viewerType == 'pretty-print'} onChange={() => setViewerType('pretty-print')} />
         Pretty print
       </label>
       <label>
-        <input type="radio" checked={viewerType == 'raw'} onClick={() => setViewerType('raw')} />
+        <input type="radio" checked={viewerType == 'raw'} onChange={() => setViewerType('raw')} />
         Raw
       </label>
     </div>

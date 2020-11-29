@@ -17,8 +17,8 @@ export const ObjectRowViewer = ({
   path: string,
   level: number
 }) => {
-  const [isExpanded, setExpanded] = useLastStateBoolean(`${path}/${label}.isExpanded`, false);
-  const [valueViewerType, setValueViewerType] = useLastState<ValueViewerType>(`${path}/${label}.valueViewerType`, 'tree-view');
+  const [isExpanded, setExpanded] = useLastStateBoolean(`${path}.isExpanded`, false);
+  const [valueViewerType, setValueViewerType] = useLastState<ValueViewerType>(`${path}.valueViewerType`, 'tree-view');
   const valueIsSimpleType = isSimpleType(value);
   const valueIsTableType = !valueIsSimpleType && isTableType(value);
   const iconPaddingLeft = `${computeNestingOffset(level)}rem`;
@@ -53,7 +53,7 @@ export const ObjectRowViewer = ({
           (
             <ObjectViewer
               value={value}
-              path={`${path}/${label}`}
+              path={path}
               level={level + 1}
               viewerType={valueIsTableType ? valueViewerType : 'tree-view'}
             />

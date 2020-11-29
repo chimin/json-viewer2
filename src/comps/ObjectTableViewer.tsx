@@ -24,8 +24,10 @@ export const ObjectTableViewer = ({ value, path, level }: {
       <table>
         <thead>
           <tr>
-            <th className="clickable" onClick={() => setSorts([])}>#</th>
-            {columns.map(column => <th key={column} className="clickable" onClick={() => addSort(column)}>{column}</th>)}
+            <th className="clickable" onClick={() => setSorts([])} title="Clear sort">#</th>
+            {columns.map(column => (
+              <th key={column} className="clickable" onClick={() => addSort(column)} title="Sort">{column}</th>
+            ))}
           </tr>
         </thead>
         <tbody>
