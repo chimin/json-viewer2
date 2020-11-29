@@ -3,32 +3,36 @@
 <head></head>
 
 <body>
-    <script>
-        window.browser = {
-            runtime: {
-                getURL(path) {
-                    return path;
-                },
-            },
-            storage: {
-                sync: {
-                    get(key) {
-                        var value = localStorage.getItem(key);
-                        var result = {};
-                        result[key] = value;
-                        return Promise.resolve(result);
-                    },
-                    set(values) {
-                        for (var key in values) {
-                            localStorage.setItem(key, values[key]);
-                        }
-                        return Promise.resolve();
-                    }
-                }
-            }
-        };
-    </script>
-    <script src="./test.js"></script>
+  <script>
+    window.browser = {
+      runtime: {
+        getURL(path) {
+          return path;
+        },
+      },
+      storage: {
+        sync: {
+          get(key) {
+            return new Promise(resolve => requestAnimationFrame(() => {
+              var value = localStorage.getItem(key);
+              var result = {};
+              result[key] = value;
+              resolve(result);
+            }));
+          },
+          set(values) {
+            return new Promise(resolve => requestAnimationFrame(() => {
+              for (var key in values) {
+                localStorage.setItem(key, values[key]);
+              }
+              return Promise.resolve();
+            }));
+          }
+        }
+      }
+    };
+  </script>
+  <script src="./test.js"></script>
 </body>
 
 </html>

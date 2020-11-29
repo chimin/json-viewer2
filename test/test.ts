@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { JsonViewer } from '../src/comps/JsonViewer';
 
-const json = require('./test.json');
+const json = require('./cloudformation.schema.json');
 
 const hidden = document.createElement('div');
 hidden.textContent = '...';
