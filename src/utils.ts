@@ -62,7 +62,7 @@ export function computeNestingOffset(level: number) {
   return 0.5 + 1.5 * level;
 }
 
-export function isPathStartsWith(path: string[], target: string[]) {
+export function isPathDescendantOf(path: string[], target: string[]) {
   return target && target.length < path.length && target.every((p, index) => p == path[index]);
 }
 

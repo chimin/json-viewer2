@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import {
   buildJsonPath,
-  computeNestingOffset, isEmptyObjectOrArray, isPathStartsWith, isSimpleType, isTableType, useLastState, useLastStateBoolean,
+  computeNestingOffset, isEmptyObjectOrArray, isPathDescendantOf, isSimpleType, isTableType, useLastState, useLastStateBoolean,
 } from '../utils';
 import { ObjectViewer } from './ObjectViewer';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -30,7 +30,7 @@ export const ObjectRowViewer = ({ value, valueMetadata }: {
   const iconPaddingLeft = `${computeNestingOffset(level)}rem`;
 
   useEffect(() => {
-    if (isPathStartsWith(path, treeActionContext.action?.path)) {
+    if (isPathDescendantOf(path, treeActionContext.action?.path)) {
       switch (treeActionContext.action.type) {
         case 'collapse-all':
           if (isExpanded) {

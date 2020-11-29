@@ -3,7 +3,7 @@ import {
  ObjectRowSortType, ValueMetadata, ValueViewerType,
 } from '../types';
 import {
- isEmptyObjectOrArray, isPathStartsWith, isTableType, useLastState, useLastStateBoolean,
+ isEmptyObjectOrArray, isPathDescendantOf, isTableType, useLastState, useLastStateBoolean,
 } from '../utils';
 import { ObjectActionBullet } from './ObjectActionBullet';
 import { ObjectRowSortTypeSelection } from './ObjectRowSortTypeSelection';
@@ -26,7 +26,7 @@ export const RootObjectViewer = ({ value, valueMetadata }: {
   const effectiveValueViewerType = valueIsTableType ? valueViewerType : 'tree-view';
 
   useEffect(() => {
-    if (isPathStartsWith(path, treeActionContext.action?.path)) {
+    if (isPathDescendantOf(path, treeActionContext.action?.path)) {
       switch (treeActionContext.action.type) {
         case 'collapse-all':
           if (isExpanded) {
