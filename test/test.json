@@ -1,4 +1,11 @@
 {
+  "camel-case": {
+    "anObject": {
+      "anArray": [
+        "aString"
+      ]
+    }
+  },
   "null-field": null,
   "string-field": "this_is_a_string",
   "number-field": 12345,

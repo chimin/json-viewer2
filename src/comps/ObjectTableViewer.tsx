@@ -1,5 +1,7 @@
 import React from 'react';
-import { compare, computeNestingOffset, getTableColumns, getTableRows, isNullOrUndefined, useLastStateJson } from '../utils';
+import {
+ buildJsonPath, compare, computeNestingOffset, getTableColumns, getTableRows, useLastStateJson,
+} from '../utils';
 import { RootViewer } from './RootViewer';
 
 export const ObjectTableViewer = ({ value, path, level }: {
@@ -34,9 +36,9 @@ export const ObjectTableViewer = ({ value, path, level }: {
           {
             rows.map(row => (
               <tr key={row.key}>
-                <th>{row.key}</th>
+                <th title={buildJsonPath(`${path}/${row.key}`)}>{row.key}</th>
                 {columns.map(column => (
-                  <td key={column}>
+                  <td key={column} title={buildJsonPath(`${path}/${row.key}/${column}`)}>
                     <RootViewer value={row.value[column]} path={`${path}/${row.key}/${column}`} />
                   </td>
                 ))}

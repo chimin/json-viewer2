@@ -58,6 +58,21 @@ export function computeNestingOffset(level: number) {
   return 0.5 + 1.5 * level;
 }
 
+export function buildJsonPath(path: string) {
+  const elements = path.split(/\//);
+  let str = '';
+  for (const element of elements) {
+    if (element.match(/^[0-9]+$/)) {
+      str += `[${element}]`;
+    } else if (element.match(/^[a-z][a-z0-9_$]*$/i)) {
+      str += `.${element}`;
+    } else if (element.length) {
+      str += `[${JSON.stringify(element)}]`;
+    }
+  }
+  return str.replace(/^\.*/, '');
+}
+
 export function prettyPrintJson(value: any) {
   return JSON.stringify(value, undefined, 2);
 }

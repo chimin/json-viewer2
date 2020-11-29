@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  buildJsonPath,
   computeNestingOffset, isSimpleType, isTableType, useLastState, useLastStateBoolean,
 } from '../utils';
 import { ObjectViewer } from './ObjectViewer';
@@ -35,7 +36,7 @@ export const ObjectRowViewer = ({
           setExpanded={setExpanded}
           paddingLeft={iconPaddingLeft}
         />
-        <span className="label">{label}</span>
+        <span className="label" title={buildJsonPath(path)}>{label}</span>
         {
           valueIsSimpleType || !isExpanded ?
             <SimpleValueViewer value={value} /> :
