@@ -1,5 +1,5 @@
 import React from 'react';
-import { JsonViewerType } from '../types';
+import { defaultValueMetadata, JsonViewerType } from '../types';
 import { useLastState } from '../utils';
 import { RootViewer } from './RootViewer';
 import { JsonViewerHeader } from './JsonViewerHeader';
@@ -17,7 +17,7 @@ export const JsonViewer = ({ json, raw }: {
       <JsonViewerHeader viewerType={viewerType} setViewerType={setViewerType} />
       <div className="body">
         {
-          viewerType == 'tree-view' ? <RootViewer value={json} path="" /> :
+          viewerType == 'tree-view' ? <RootViewer value={json} valueMetadata={defaultValueMetadata} /> :
             viewerType == 'pretty-print' ? <PrettyPrintViewer json={json} /> :
               viewerType == 'raw' ? <RawViewer raw={raw} /> :
                 null

@@ -1,14 +1,17 @@
 import React from 'react';
+import { ValueMetadata } from '../types';
 import {
- buildJsonPath, compare, computeNestingOffset, getTableColumns, getTableRows, useLastStateJson,
+  buildJsonPath, compare, computeNestingOffset, getTableColumns, getTableRows, useLastStateJson,
 } from '../utils';
 import { RootViewer } from './RootViewer';
 
-export const ObjectTableViewer = ({ value, path, level }: {
+export const ObjectTableViewer = ({
+  value, valueMetadata
+}: {
   value: {}[] | {},
-  path: string,
-  level: number
+  valueMetadata: ValueMetadata
 }) => {
+  const { path, level } = valueMetadata;
   const [sorts, setSorts] = useLastStateJson<SortInfo[]>(`${path}.sorts`, []);
   const columns = getTableColumns(value);
   const rows = sortTableRows(getTableRows(value), sorts);
@@ -39,7 +42,10 @@ export const ObjectTableViewer = ({ value, path, level }: {
                 <th title={buildJsonPath(`${path}/${row.key}`)}>{row.key}</th>
                 {columns.map(column => (
                   <td key={column} title={buildJsonPath(`${path}/${row.key}/${column}`)}>
-                    <RootViewer value={row.value[column]} path={`${path}/${row.key}/${column}`} />
+                    <RootViewer
+                      value={row.value[column]}
+                      valueMetadata={{ ...valueMetadata, path: `${path}/${row.key}/${column}` }}
+                    />
                   </td>
                 ))}
               </tr>

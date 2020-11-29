@@ -10,7 +10,7 @@ export const SimpleValueViewer = ({ value }: {
       {
         typeof value === 'string' ?
           isLink(value) ?
-            <a href={value} target="_blank" className="simple-value link">{value}</a> :
+            <a href={value} target="_blank" className="simple-value link clickable">{value}</a> :
             <span className="simple-value string">{value}</span> :
           isSimpleType(value) ?
             <span className="simple-value">{formatSimpleValue(value)}</span> :

@@ -1,31 +1,38 @@
 import React from 'react';
-import { ObjectRowSortType, ValueViewerType } from '../types';
+import { ObjectRowSortType, ValueMetadata, ValueViewerType } from '../types';
 import { compare } from '../utils';
 import { EmptyIndicator } from './EmptyIndicator';
 import { ObjectRowViewer } from './ObjectRowViewer';
 import { ObjectTableViewer } from './ObjectTableViewer';
 
-export const ObjectViewer = ({
-  value, path, level, viewerType, sortType,
-}: {
+export const ObjectViewer = ({ value, valueMetadata, viewerType, sortType, }: {
   value: any,
-  path: string,
-  level: number,
+  valueMetadata: ValueMetadata,
   viewerType: ValueViewerType,
   sortType: ObjectRowSortType
 }) => {
+  const { path } = valueMetadata;
+
   const keys = getSortedKeys(value, sortType);
   if (keys.length == 0) {
-    return <EmptyIndicator level={level} />;
+    return <EmptyIndicator valueMetadata={valueMetadata} />;
   }
 
   if (viewerType == 'table-view') {
-    return <ObjectTableViewer value={value} path={path} level={level} />;
+    return <ObjectTableViewer value={value} valueMetadata={valueMetadata} />;
   }
 
   return (
     <>
-      {keys.map(key => <ObjectRowViewer key={key} value={value[key]} label={key} path={`${path}/${key}`} level={level} />)}
+      {
+        keys.map(key => (
+          <ObjectRowViewer
+            key={key}
+            value={value[key]}
+            valueMetadata={{ ...valueMetadata, path: `${path}/${key}`, label: key }}
+          />
+        ))
+      }
     </>
   );
 };

@@ -16,7 +16,7 @@ body {
 }
 
 .selection-panel {
-    color: #bbb;
+    color: #aaa;
     >* {
         margin-right: .3rem;
         input {
@@ -36,6 +36,8 @@ body {
     }
     .icon.checked {
         color: #000;
+        outline: 1px solid #ddf;
+        background-color: #eef;
     }
     .icon:before {
         content: '\0020';
@@ -44,7 +46,7 @@ body {
         content: '\0020';
     }
     .icon:hover {
-        background-color: #ddd;
+        background-color: #ddf;
     }
 }
 
@@ -105,6 +107,7 @@ body {
         padding-bottom: .1rem;
         display: flex;
         .object-action-bullet {
+            background: #ddd;
             .icon {
                 color: #000;
             }
@@ -186,4 +189,9 @@ body {
             padding: .1rem .5rem;
         }
     }
+}
+
+.empty-indicator {
+    padding: .1rem;
+    color: #888;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ObjectRowSortType, ValueViewerType } from '../types';
+import { ObjectRowSortType, ValueMetadata, ValueViewerType } from '../types';
 import { isTableType, useLastState, useLastStateBoolean } from '../utils';
 import { ObjectActionBullet } from './ObjectActionBullet';
 import { ObjectRowSortTypeSelection } from './ObjectRowSortTypeSelection';
@@ -7,10 +7,11 @@ import { ObjectViewer } from './ObjectViewer';
 import { SimpleValueViewer } from './SimpleValueViewer';
 import { ValueViewerTypeSelection } from './ValueViewerTypeSelection';
 
-export const RootObjectViewer = ({ value, path }: {
+export const RootObjectViewer = ({ value, valueMetadata }: {
   value: any,
-  path: string
+  valueMetadata: ValueMetadata
 }) => {
+  const { path } = valueMetadata;
   const [isExpanded, setExpanded] = useLastStateBoolean(`${path}.isExpanded`, false);
   const [valueViewerType, setValueViewerType] = useLastState<ValueViewerType>(`${path}.valueViewerType`, 'tree-view');
   const [sortType, setSortType] = useLastState<ObjectRowSortType>(`${path}.sortType`, 'default');
@@ -60,8 +61,7 @@ export const RootObjectViewer = ({ value, path }: {
             <div>
               <ObjectViewer
                 value={value}
-                path={path}
-                level={0}
+                valueMetadata={{ ...valueMetadata, level: 0 }}
                 viewerType={effectiveValueViewerType}
                 sortType={sortType}
               />

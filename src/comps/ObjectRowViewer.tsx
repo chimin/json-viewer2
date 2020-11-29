@@ -7,18 +7,15 @@ import { ObjectViewer } from './ObjectViewer';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { SimpleValueViewer } from './SimpleValueViewer';
 import { ValueViewerTypeSelection } from './ValueViewerTypeSelection';
-import { ObjectRowSortType, ValueViewerType } from '../types';
+import { ObjectRowSortType, ValueMetadata, ValueViewerType } from '../types';
 import { ObjectActionBullet } from './ObjectActionBullet';
 import { ObjectRowSortTypeSelection } from './ObjectRowSortTypeSelection';
 
-export const ObjectRowViewer = ({
-  value, label, path, level,
-}: {
+export const ObjectRowViewer = ({ value, valueMetadata }: {
   value: any,
-  label: string,
-  path: string,
-  level: number
+  valueMetadata: ValueMetadata
 }) => {
+  const { path, label, level } = valueMetadata;
   const [isExpanded, setExpanded] = useLastStateBoolean(`${path}.isExpanded`, false);
   const [valueViewerType, setValueViewerType] = useLastState<ValueViewerType>(`${path}.valueViewerType`, 'tree-view');
   const [sortType, setSortType] = useLastState<ObjectRowSortType>(`${path}.sortType`, 'default');
@@ -70,8 +67,7 @@ export const ObjectRowViewer = ({
           (
             <ObjectViewer
               value={value}
-              path={path}
-              level={level + 1}
+              valueMetadata={{ ...valueMetadata, level: level + 1 }}
               viewerType={effectiveValueViewerType}
               sortType={sortType}
             />

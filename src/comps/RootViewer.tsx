@@ -1,11 +1,12 @@
 import React from 'react';
+import { ValueMetadata } from '../types';
 import { isSimpleType } from '../utils';
 import { RootObjectViewer } from './RootObjectViewer';
 import { SimpleValueViewer } from './SimpleValueViewer';
 
-export const RootViewer = ({ value, path }: {
+export const RootViewer = ({ value, valueMetadata }: {
   value: any,
-  path: string
+  valueMetadata: ValueMetadata
 }) => (
     <>
       {
@@ -13,7 +14,7 @@ export const RootViewer = ({ value, path }: {
           null :
           isSimpleType(value) ?
             <SimpleValueViewer value={value} /> :
-            <RootObjectViewer value={value} path={path} />
+            <RootObjectViewer value={value} valueMetadata={valueMetadata} />
       }
     </>
   );
