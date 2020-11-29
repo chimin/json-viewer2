@@ -6,8 +6,9 @@ import { ObjectViewer } from './ObjectViewer';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { SimpleValueViewer } from './SimpleValueViewer';
 import { ValueViewerTypeSelection } from './ValueViewerTypeSelection';
-import { ValueViewerType } from '../types';
+import { ObjectRowSortType, ValueViewerType } from '../types';
 import { ObjectActionBullet } from './ObjectActionBullet';
+import { ObjectRowSortTypeSelection } from './ObjectRowSortTypeSelection';
 
 export const ObjectRowViewer = ({
   value, label, path, level,
@@ -19,8 +20,10 @@ export const ObjectRowViewer = ({
 }) => {
   const [isExpanded, setExpanded] = useLastStateBoolean(`${path}.isExpanded`, false);
   const [valueViewerType, setValueViewerType] = useLastState<ValueViewerType>(`${path}.valueViewerType`, 'tree-view');
+  const [sortType, setSortType] = useLastState<ObjectRowSortType>(`${path}.sortType`, 'default');
   const valueIsSimpleType = isSimpleType(value);
   const valueIsTableType = !valueIsSimpleType && isTableType(value);
+  const effectiveValueViewerType = valueIsTableType ? valueViewerType : 'tree-view';
   const iconPaddingLeft = `${computeNestingOffset(level)}rem`;
 
   return (
@@ -39,13 +42,26 @@ export const ObjectRowViewer = ({
             null
         }
         {
-          valueIsTableType && isExpanded ?
-            (
-              <span className="toolbar">
-                <ValueViewerTypeSelection viewerType={valueViewerType} setViewerType={setValueViewerType} />
-              </span>
-            ) :
-            null
+          isExpanded ? (
+            <span className="toolbar">
+              {
+                valueIsTableType ?
+                  <ValueViewerTypeSelection viewerType={valueViewerType} setViewerType={setValueViewerType} /> :
+                  null
+              }
+              {
+                !valueIsSimpleType && effectiveValueViewerType == 'tree-view' ?
+                  (
+                    <ObjectRowSortTypeSelection
+                      sortType={sortType}
+                      setSortType={setSortType}
+                      field={Array.isArray(value) ? 'value' : 'label'}
+                    />
+                  ) :
+                  null
+              }
+            </span>
+          ) : null
         }
       </div>
       {
@@ -55,7 +71,8 @@ export const ObjectRowViewer = ({
               value={value}
               path={path}
               level={level + 1}
-              viewerType={valueIsTableType ? valueViewerType : 'tree-view'}
+              viewerType={effectiveValueViewerType}
+              sortType={sortType}
             />
           ) :
           null

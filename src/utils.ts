@@ -84,7 +84,8 @@ export function compare(a: any, b: any) {
   return !isNullOrUndefined(a) && isNullOrUndefined(b) ? -1 :
     isNullOrUndefined(a) && !isNullOrUndefined(b) ? 1 :
       typeof a === 'string' && typeof b === 'string' ? a.localeCompare(b) :
-        a - b;
+        typeof a === 'object' && typeof b === 'object' ? summarizeComplexValue(a).localeCompare(summarizeComplexValue(b)) :
+          a - b;
 }
 
 export async function getLastState(key: string) {

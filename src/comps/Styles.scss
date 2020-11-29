@@ -115,7 +115,7 @@ body {
     }
     .header-row:hover {
         .toolbar {
-            display: initial;
+            display: flex;
         }
     }
 }
@@ -165,7 +165,7 @@ body {
     }
     .value-row:hover {
         .toolbar {
-            display: initial;
+            display: flex;
         }
     }
 }

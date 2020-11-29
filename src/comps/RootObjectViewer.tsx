@@ -1,7 +1,8 @@
 import React from 'react';
-import { ValueViewerType } from '../types';
+import { ObjectRowSortType, ValueViewerType } from '../types';
 import { isTableType, useLastState, useLastStateBoolean } from '../utils';
 import { ObjectActionBullet } from './ObjectActionBullet';
+import { ObjectRowSortTypeSelection } from './ObjectRowSortTypeSelection';
 import { ObjectViewer } from './ObjectViewer';
 import { SimpleValueViewer } from './SimpleValueViewer';
 import { ValueViewerTypeSelection } from './ValueViewerTypeSelection';
@@ -12,7 +13,9 @@ export const RootObjectViewer = ({ value, path }: {
 }) => {
   const [isExpanded, setExpanded] = useLastStateBoolean(`${path}.isExpanded`, false);
   const [valueViewerType, setValueViewerType] = useLastState<ValueViewerType>(`${path}.valueViewerType`, 'tree-view');
+  const [sortType, setSortType] = useLastState<ObjectRowSortType>(`${path}.sortType`, 'default');
   const valueIsTableType = isTableType(value);
+  const effectiveValueViewerType = valueIsTableType ? valueViewerType : 'tree-view';
 
   return (
     <div className="root-object-viewer">
@@ -29,13 +32,26 @@ export const RootObjectViewer = ({ value, path }: {
             null
         }
         {
-          valueIsTableType && isExpanded ?
-            (
-              <span className="toolbar">
-                <ValueViewerTypeSelection viewerType={valueViewerType} setViewerType={setValueViewerType} />
-              </span>
-            ) :
-            null
+          isExpanded ? (
+            <span className="toolbar">
+              {
+                valueIsTableType ?
+                  <ValueViewerTypeSelection viewerType={valueViewerType} setViewerType={setValueViewerType} /> :
+                  null
+              }
+              {
+                effectiveValueViewerType == 'tree-view' ?
+                  (
+                    <ObjectRowSortTypeSelection
+                      sortType={sortType}
+                      setSortType={setSortType}
+                      field={Array.isArray(value) ? 'value' : 'label'}
+                    />
+                  ) :
+                  null
+              }
+            </span>
+          ) : null
         }
       </div>
       {
@@ -46,7 +62,8 @@ export const RootObjectViewer = ({ value, path }: {
                 value={value}
                 path={path}
                 level={0}
-                viewerType={valueIsTableType ? valueViewerType : 'tree-view'}
+                viewerType={effectiveValueViewerType}
+                sortType={sortType}
               />
             </div>
           ) :
