@@ -16,16 +16,17 @@ export const JsonViewer = ({ json, raw }: {
   const [action, setAction] = useState<TreeAction>();
   const [viewerType, setViewerType] = useLastState<JsonViewerType>('jsonViewerType', 'raw');
 
-  const triggerAction = async (actionType: TreeActionType, path: string): Promise<void> => new Promise(resolve => {
+  const triggerAction = async (actionType: TreeActionType, path: string[]): Promise<void> => new Promise(resolve => {
     const states: Record<string, boolean> = {};
+    const stateKey = JSON.stringify(path);
     setAction({
       type: actionType,
       path,
       registerInProgress: targetPath => {
-        states[targetPath] = false;
+        states[stateKey] = false;
       },
       registerCompleted: targetPath => {
-        states[targetPath] = true;
+        states[stateKey] = true;
         if (Object.values(states).every(s => s)) {
           setAction(undefined);
           resolve();

@@ -1,6 +1,10 @@
 import React, { useContext, useEffect } from 'react';
-import { ObjectRowSortType, ValueMetadata, ValueViewerType } from '../types';
-import { isTableType, useLastState, useLastStateBoolean } from '../utils';
+import {
+ ObjectRowSortType, ValueMetadata, ValueViewerType,
+} from '../types';
+import {
+ isEmptyObjectOrArray, isPathStartsWith, isTableType, useLastState, useLastStateBoolean,
+} from '../utils';
 import { ObjectActionBullet } from './ObjectActionBullet';
 import { ObjectRowSortTypeSelection } from './ObjectRowSortTypeSelection';
 import { ObjectViewer } from './ObjectViewer';
@@ -22,7 +26,7 @@ export const RootObjectViewer = ({ value, valueMetadata }: {
   const effectiveValueViewerType = valueIsTableType ? valueViewerType : 'tree-view';
 
   useEffect(() => {
-    if (matchPath(path, treeActionContext.action)) {
+    if (isPathStartsWith(path, treeActionContext.action?.path)) {
       switch (treeActionContext.action.type) {
         case 'collapse-all':
           if (isExpanded) {
@@ -61,7 +65,7 @@ export const RootObjectViewer = ({ value, valueMetadata }: {
             null
         }
         {
-          isExpanded ? (
+          isExpanded && !isEmptyObjectOrArray(value) ? (
             <span className="toolbar">
               {
                 valueIsTableType ?
@@ -104,7 +108,3 @@ export const RootObjectViewer = ({ value, valueMetadata }: {
     </div>
   );
 };
-
-function matchPath(path: string, action: TreeAction) {
-  return action && path.startsWith(action.path) && path.length > action.path.length;
-}

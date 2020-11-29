@@ -1,13 +1,15 @@
 import React, { useContext, useEffect } from 'react';
 import {
   buildJsonPath,
-  computeNestingOffset, isSimpleType, isTableType, useLastState, useLastStateBoolean,
+  computeNestingOffset, isEmptyObjectOrArray, isPathStartsWith, isSimpleType, isTableType, useLastState, useLastStateBoolean,
 } from '../utils';
 import { ObjectViewer } from './ObjectViewer';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { SimpleValueViewer } from './SimpleValueViewer';
 import { ValueViewerTypeSelection } from './ValueViewerTypeSelection';
-import { ObjectRowSortType, TreeAction, ValueMetadata, ValueViewerType } from '../types';
+import {
+ ObjectRowSortType, ValueMetadata, ValueViewerType,
+} from '../types';
 import { ObjectActionBullet } from './ObjectActionBullet';
 import { ObjectRowSortTypeSelection } from './ObjectRowSortTypeSelection';
 import { TreeActionPanel } from './TreeActionPanel';
@@ -28,7 +30,7 @@ export const ObjectRowViewer = ({ value, valueMetadata }: {
   const iconPaddingLeft = `${computeNestingOffset(level)}rem`;
 
   useEffect(() => {
-    if (matchPath(path, treeActionContext.action)) {
+    if (isPathStartsWith(path, treeActionContext.action?.path)) {
       switch (treeActionContext.action.type) {
         case 'collapse-all':
           if (isExpanded) {
@@ -68,7 +70,7 @@ export const ObjectRowViewer = ({ value, valueMetadata }: {
             null
         }
         {
-          isExpanded ? (
+          isExpanded && !isEmptyObjectOrArray(value) ? (
             <span className="toolbar">
               {
                 valueIsTableType ?
@@ -113,7 +115,3 @@ export const ObjectRowViewer = ({ value, valueMetadata }: {
     </div>
   );
 };
-
-function matchPath(path: string, action: TreeAction) {
-  return action && path.startsWith(action.path) && path.length > action.path.length;
-}

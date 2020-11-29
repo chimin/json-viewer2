@@ -39,12 +39,12 @@ export const ObjectTableViewer = ({
           {
             rows.map(row => (
               <tr key={row.key}>
-                <th title={buildJsonPath(`${path}/${row.key}`)}>{row.key}</th>
+                <th title={buildJsonPath(path.concat(row.key))}>{row.key}</th>
                 {columns.map(column => (
-                  <td key={column} title={buildJsonPath(`${path}/${row.key}/${column}`)}>
+                  <td key={column} title={buildJsonPath(path.concat(row.key, column))}>
                     <RootViewer
                       value={row.value[column]}
-                      valueMetadata={{ ...valueMetadata, path: `${path}/${row.key}/${column}` }}
+                      valueMetadata={{ ...valueMetadata, path: path.concat(row.key, column) }}
                     />
                   </td>
                 ))}

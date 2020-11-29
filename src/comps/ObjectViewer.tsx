@@ -5,7 +5,9 @@ import { EmptyIndicator } from './EmptyIndicator';
 import { ObjectRowViewer } from './ObjectRowViewer';
 import { ObjectTableViewer } from './ObjectTableViewer';
 
-export const ObjectViewer = ({ value, valueMetadata, viewerType, sortType, }: {
+export const ObjectViewer = ({
+ value, valueMetadata, viewerType, sortType,
+}: {
   value: any,
   valueMetadata: ValueMetadata,
   viewerType: ValueViewerType,
@@ -29,7 +31,7 @@ export const ObjectViewer = ({ value, valueMetadata, viewerType, sortType, }: {
           <ObjectRowViewer
             key={key}
             value={value[key]}
-            valueMetadata={{ ...valueMetadata, path: `${path}/${key}`, label: key }}
+            valueMetadata={{ ...valueMetadata, path: path.concat(key), label: key }}
           />
         ))
       }

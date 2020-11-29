@@ -27,6 +27,10 @@ export function isLink(value: string) {
   return value.match(/^https?:\/\/.*$/);
 }
 
+export function isEmptyObjectOrArray(value: any) {
+  return !value || Object.keys(value).length == 0;
+}
+
 export function formatSimpleValue(value: any) {
   return value === null ? 'null' : value === undefined ? 'undefined' : value.toString();
 }
@@ -58,10 +62,13 @@ export function computeNestingOffset(level: number) {
   return 0.5 + 1.5 * level;
 }
 
-export function buildJsonPath(path: string) {
-  const elements = path.split(/\//);
+export function isPathStartsWith(path: string[], target: string[]) {
+  return target && target.length < path.length && target.every((p, index) => p == path[index]);
+}
+
+export function buildJsonPath(path: string[]) {
   let str = '';
-  for (const element of elements) {
+  for (const element of path) {
     if (element.match(/^[0-9]+$/)) {
       str += `[${element}]`;
     } else if (element.match(/^[a-z][a-z0-9_$]*$/i)) {
