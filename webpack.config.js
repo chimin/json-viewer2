@@ -52,4 +52,7 @@ module.exports = {
   watchOptions: {
     ignored: ['node_modules/**', 'dist/**', 'test/dist/**', 'out/**'],
   },
+  devServer: {
+    contentBase: path.join(__dirname, 'test/dist'),
+  },
 };
