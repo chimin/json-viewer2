@@ -3,7 +3,9 @@
     "build": "npm-run-all --serial build:webpack build:zip",
     "build:webpack": "del-cli -f dist && make-dir dist && webpack",
     "build:zip": "del-cli -f out && make-dir out && cross-zip ./dist ./out/dist.zip",
-    "dev": "webpack serve --watch --devtool inline-source-map --mode development",
+    "dev": "npm-run-all --parallel dev:webpack dev:test",
+    "dev:webpack": "webpack --watch --devtool inline-source-map --mode development",
+    "dev:test": "live-server ./test/dist",
     "lint": "eslint src/**/*.ts src/**/*.tsx",
     "lint:fix": "eslint src/**/*.ts src/**/*.tsx --fix"
   },
@@ -24,6 +26,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-unused-imports": "^1.0.1",
     "file-loader": "^6.2.0",
+    "live-server": "^1.2.1",
     "make-dir-cli": "^2.0.0",
     "npm-run-all": "^4.1.5",
     "sass": "^1.29.0",

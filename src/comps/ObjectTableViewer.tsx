@@ -43,7 +43,7 @@ export const ObjectTableViewer = ({
                 {columns.map(column => (
                   <td key={column} title={buildJsonPath(path.concat(row.key, column))}>
                     <RootViewer
-                      value={row.value[column]}
+                      value={row.value ? row.value[column] : undefined}
                       valueMetadata={{ ...valueMetadata, path: path.concat(row.key, column) }}
                     />
                   </td>

@@ -64,7 +64,8 @@
           "table-inner-inner-field": "string_in_an_object_in_a_table_2"
         }
       }
-    }
+    },
+    null
   ],
   "object-table-field": {
     "a": {
@@ -98,6 +99,7 @@
           }
         }
       }
-    }
+    },
+    "null": null
   }
 }

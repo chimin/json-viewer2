@@ -6,7 +6,7 @@ import { ObjectRowViewer } from './ObjectRowViewer';
 import { ObjectTableViewer } from './ObjectTableViewer';
 
 export const ObjectViewer = ({
- value, valueMetadata, viewerType, sortType,
+  value, valueMetadata, viewerType, sortType,
 }: {
   value: any,
   valueMetadata: ValueMetadata,

@@ -13,11 +13,11 @@ export function isSimpleType(value: any) {
 
 export function isTableType(value: {}[] | {}) {
   if (Array.isArray(value)) {
-    return value.every(a => !isSimpleType(a));
+    return value.every(a => isNullOrUndefined(a) || !isSimpleType(a));
   }
 
   if (typeof value === 'object') {
-    return Object.values(value).every(a => !isSimpleType(a));
+    return Object.values(value).every(a => isNullOrUndefined(a) || !isSimpleType(a));
   }
 
   return false;
@@ -86,10 +86,10 @@ export function prettyPrintJson(value: any) {
 
 export function getTableColumns(table: {}[] | {}) {
   if (Array.isArray(table)) {
-    return Array.from(new Set(table.flatMap(a => Object.keys(a))));
+    return Array.from(new Set(table.flatMap(a => (a ? Object.keys(a) : []))));
   }
 
-  return Array.from(new Set(Object.values(table).flatMap(a => Object.keys(a))));
+  return Array.from(new Set(Object.values(table).flatMap(a => (a ? Object.keys(a) : []))));
 }
 
 export function getTableRows(table: {}[] | {}) {
