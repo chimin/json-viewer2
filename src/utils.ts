@@ -140,8 +140,8 @@ export function useLastState<T extends string>(key: string, defaultValue: T):
 
   const statefulSetter = async (newValue: T) => {
     cancelInit = true;
-    setter(newValue);
     await setLastState(key, newValue);
+    setter(newValue);
   };
 
   return [value, statefulSetter];
@@ -167,8 +167,8 @@ export function useLastStateBoolean(key: string, defaultValue: boolean):
 
   const statefulSetter = async (newValue: boolean) => {
     cancelInit = true;
-    setter(newValue);
     await setLastState(key, newValue ? '1' : '0');
+    setter(newValue);
   };
 
   return [value, statefulSetter];

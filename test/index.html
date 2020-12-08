@@ -25,7 +25,7 @@
               for (var key in values) {
                 localStorage.setItem(key, values[key]);
               }
-              return Promise.resolve();
+              resolve();
             }));
           }
         }

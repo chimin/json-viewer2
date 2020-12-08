@@ -30,16 +30,16 @@ export const RootObjectViewer = ({ value, valueMetadata }: {
       switch (treeActionContext.action.type) {
         case 'collapse-all':
           if (isExpanded) {
-            setExpanded(false);
             treeActionContext.action.registerInProgress(path);
+            setExpanded(false);
           } else {
             treeActionContext.action.registerCompleted(path);
           }
           break;
         case 'expand-all':
           if (!isExpanded) {
-            setExpanded(true);
             treeActionContext.action.registerInProgress(path);
+            setExpanded(true);
           } else {
             treeActionContext.action.registerCompleted(path);
           }
