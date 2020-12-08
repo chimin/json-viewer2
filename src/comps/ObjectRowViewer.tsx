@@ -8,7 +8,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { SimpleValueViewer } from './SimpleValueViewer';
 import { ValueViewerTypeSelection } from './ValueViewerTypeSelection';
 import {
- ObjectRowSortType, ValueMetadata, ValueViewerType,
+  ObjectRowSortType, ValueMetadata, ValueViewerType,
 } from '../types';
 import { ObjectActionBullet } from './ObjectActionBullet';
 import { ObjectRowSortTypeSelection } from './ObjectRowSortTypeSelection';
@@ -71,32 +71,34 @@ export const ObjectRowViewer = ({ value, valueMetadata }: {
         }
         {
           isExpanded && !isEmptyObjectOrArray(value) ? (
-            <span className="toolbar">
-              {
-                valueIsTableType ?
-                  <ValueViewerTypeSelection viewerType={valueViewerType} setViewerType={setValueViewerType} /> :
-                  null
-              }
-              {
-                !valueIsSimpleType && effectiveValueViewerType == 'tree-view' ?
-                  (
-                    <ObjectRowSortTypeSelection
-                      sortType={sortType}
-                      setSortType={setSortType}
-                      field={Array.isArray(value) ? 'value' : 'label'}
-                    />
-                  ) : null
-              }
-              {
-                !valueIsSimpleType ?
-                  (
-                    <TreeActionPanel
-                      onClickCollapseAll={() => treeActionContext.triggerAction('collapse-all', path)}
-                      onClickExpandAll={() => treeActionContext.triggerAction('expand-all', path)}
-                    />
-                  ) : null
-              }
-            </span>
+            <div>
+              <span className="toolbar">
+                {
+                  valueIsTableType ?
+                    <ValueViewerTypeSelection viewerType={valueViewerType} setViewerType={setValueViewerType} /> :
+                    null
+                }
+                {
+                  !valueIsSimpleType && effectiveValueViewerType == 'tree-view' ?
+                    (
+                      <ObjectRowSortTypeSelection
+                        sortType={sortType}
+                        setSortType={setSortType}
+                        field={Array.isArray(value) ? 'value' : 'label'}
+                      />
+                    ) : null
+                }
+                {
+                  !valueIsSimpleType ?
+                    (
+                      <TreeActionPanel
+                        onClickCollapseAll={() => treeActionContext.triggerAction('collapse-all', path)}
+                        onClickExpandAll={() => treeActionContext.triggerAction('expand-all', path)}
+                      />
+                    ) : null
+                }
+              </span>
+            </div>
           ) : null
         }
       </div>

@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import {
- ObjectRowSortType, ValueMetadata, ValueViewerType,
+  ObjectRowSortType, ValueMetadata, ValueViewerType,
 } from '../types';
 import {
- isEmptyObjectOrArray, isPathDescendantOf, isTableType, useLastState, useLastStateBoolean,
+  isEmptyObjectOrArray, isPathDescendantOf, isTableType, useLastState, useLastStateBoolean,
 } from '../utils';
 import { ObjectActionBullet } from './ObjectActionBullet';
 import { ObjectRowSortTypeSelection } from './ObjectRowSortTypeSelection';
@@ -66,28 +66,30 @@ export const RootObjectViewer = ({ value, valueMetadata }: {
         }
         {
           isExpanded && !isEmptyObjectOrArray(value) ? (
-            <span className="toolbar">
-              {
-                valueIsTableType ?
-                  <ValueViewerTypeSelection viewerType={valueViewerType} setViewerType={setValueViewerType} /> :
-                  null
-              }
-              {
-                effectiveValueViewerType == 'tree-view' ?
-                  (
-                    <ObjectRowSortTypeSelection
-                      sortType={sortType}
-                      setSortType={setSortType}
-                      field={Array.isArray(value) ? 'value' : 'label'}
-                    />
-                  ) :
-                  null
-              }
-              <TreeActionPanel
-                onClickCollapseAll={() => treeActionContext.triggerAction('collapse-all', path)}
-                onClickExpandAll={() => treeActionContext.triggerAction('expand-all', path)}
-              />
-            </span>
+            <div>
+              <span className="toolbar">
+                {
+                  valueIsTableType ?
+                    <ValueViewerTypeSelection viewerType={valueViewerType} setViewerType={setValueViewerType} /> :
+                    null
+                }
+                {
+                  effectiveValueViewerType == 'tree-view' ?
+                    (
+                      <ObjectRowSortTypeSelection
+                        sortType={sortType}
+                        setSortType={setSortType}
+                        field={Array.isArray(value) ? 'value' : 'label'}
+                      />
+                    ) :
+                    null
+                }
+                <TreeActionPanel
+                  onClickCollapseAll={() => treeActionContext.triggerAction('collapse-all', path)}
+                  onClickExpandAll={() => treeActionContext.triggerAction('expand-all', path)}
+                />
+              </span>
+            </div>
           ) : null
         }
       </div>
