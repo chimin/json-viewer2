@@ -4,7 +4,6 @@ import {
   computeNestingOffset, isEmptyObjectOrArray, isPathDescendantOf, isSimpleType, isTableType, useLastState, useLastStateBoolean,
 } from '../utils';
 import { ObjectViewer } from './ObjectViewer';
-import '@fortawesome/fontawesome-free/css/all.min.css';
 import { SimpleValueViewer } from './SimpleValueViewer';
 import { ValueViewerTypeSelection } from './ValueViewerTypeSelection';
 import {

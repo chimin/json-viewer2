@@ -23,10 +23,15 @@ module.exports = {
         exclude: /node_modules/,
       }, {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        use: [
+          { loader: 'style-loader', options: { injectType: 'lazyStyleTag' } },
+          'css-loader'],
       }, {
         test: /\.s[ac]ss$/i,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: [
+          { loader: 'style-loader', options: { injectType: 'lazyStyleTag' } },
+          'css-loader',
+          'sass-loader'],
       }, {
         test: /\.(png|jpe?g|gif|svg|ttf|woff2?|eot)$/i,
         loader: 'file-loader',

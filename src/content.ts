@@ -36,6 +36,9 @@ function setup() {
     return;
   }
 
+  require('./comps/Styles.scss').default.use();
+  require('../node_modules/@fortawesome/fontawesome-free/css/all.min.css').default.use();
+
   const container = document.createElement('div');
   document.body.innerHTML = '';
   document.body.appendChild(container);
