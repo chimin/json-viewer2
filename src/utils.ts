@@ -110,14 +110,30 @@ export function compare(a: any, b: any) {
           a - b;
 }
 
+const cachedLastStates: { key: string, value: string }[] = [];
+
 export async function getLastState(key: string) {
-  return (await browser.storage.sync.get(key))[key]?.toString();
+  const cachedItem = cachedLastStates.filter(a => a.key == key).pop();
+  if (cachedItem) {
+    return new Promise(resolve => requestAnimationFrame(() => resolve(cachedItem.value)));
+  }
+  return (await browser.storage.local.get(key))[key]?.toString();
 }
 
-export async function setLastState(key: string, value: string) {
-  const obj = {};
-  obj[key] = value;
-  await browser.storage.sync.set(obj);
+export function setLastState(key: string, value: string) {
+  const cachedItem = { key, value };
+  cachedLastStates.push(cachedItem);
+
+  (async () => {
+    await browser.storage.local.set({ [key]: value });
+
+    const cachedIndex = cachedLastStates.indexOf(cachedItem);
+    if (cachedIndex >= 0) {
+      cachedLastStates.splice(cachedIndex, 1);
+    }
+  })();
+
+  return new Promise(resolve => requestAnimationFrame(resolve));
 }
 
 export function useLastState<T extends string>(key: string, defaultValue: T):
@@ -136,7 +152,7 @@ export function useLastState<T extends string>(key: string, defaultValue: T):
     return () => {
       cancelInit = true;
     };
-  });
+  }, []);
 
   const statefulSetter = async (newValue: T) => {
     cancelInit = true;
@@ -163,7 +179,7 @@ export function useLastStateBoolean(key: string, defaultValue: boolean):
     return () => {
       cancelInit = true;
     };
-  });
+  }, []);
 
   const statefulSetter = async (newValue: boolean) => {
     cancelInit = true;
