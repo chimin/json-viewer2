@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
+import { NestingPadding } from './NestingPadding';
 import { TreeActionContext } from './TreeActionContext';
 
 export const ObjectActionBullet = ({
-  valueIsSimpleType, isExpanded, setExpanded, paddingLeft,
+  valueIsSimpleType, isExpanded, setExpanded, level,
 }: {
   valueIsSimpleType: boolean,
   isExpanded: boolean,
   setExpanded: (value: boolean) => void,
-  paddingLeft: string
+  level: number
 }) => {
   const treeActionContext = useContext(TreeActionContext);
 
@@ -21,19 +22,28 @@ export const ObjectActionBullet = ({
       {
         valueIsSimpleType ?
           (
-            <span className="icon" style={{ paddingLeft }}>
-              <i className="far fa-circle" />
+            <span className="icon">
+              <NestingPadding level={level} />
+              <div className="image">
+                <i className="far fa-circle" />
+              </div>
             </span>
           ) :
           isExpanded ?
             (
-              <span className="icon clickable" style={{ paddingLeft }} onClick={() => updateExpanded(false)} title="Collapse">
-                <i className="fas fa-chevron-down" />
+              <span className="icon clickable" onClick={() => updateExpanded(false)} title="Collapse">
+                <NestingPadding level={level} />
+                <div className="image">
+                  <i className="fas fa-chevron-down" />
+                </div>
               </span>
             ) :
             (
-              <span className="icon clickable" style={{ paddingLeft }} onClick={() => updateExpanded(true)} title="Expand">
-                <i className="fas fa-chevron-right" />
+              <span className="icon clickable" onClick={() => updateExpanded(true)} title="Expand">
+                <NestingPadding level={level} />
+                <div className="image">
+                  <i className="fas fa-chevron-right" />
+                </div>
               </span>
             )
       }

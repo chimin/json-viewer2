@@ -57,7 +57,7 @@ export const RootObjectViewer = ({ value, valueMetadata }: {
           valueIsSimpleType={false}
           isExpanded={isExpanded}
           setExpanded={setExpanded}
-          paddingLeft=".5rem"
+          level={0}
         />
         {
           !isExpanded ?

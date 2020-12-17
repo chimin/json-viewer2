@@ -1,12 +1,13 @@
 import React from 'react';
 import { ValueMetadata } from '../types';
 import {
-  buildJsonPath, compare, computeNestingOffset, getTableColumns, getTableRows, useLastStateJson,
+  buildJsonPath, compare, getTableColumns, getTableRows, useLastStateJson,
 } from '../utils';
+import { NestingPadding } from './NestingPadding';
 import { RootViewer } from './RootViewer';
 
 export const ObjectTableViewer = ({
-  value, valueMetadata
+  value, valueMetadata,
 }: {
   value: {}[] | {},
   valueMetadata: ValueMetadata
@@ -15,7 +16,6 @@ export const ObjectTableViewer = ({
   const [sorts, setSorts] = useLastStateJson<SortInfo[]>(`${path}.sorts`, []);
   const columns = getTableColumns(value);
   const rows = sortTableRows(getTableRows(value), sorts);
-  const paddingLeft = `${computeNestingOffset(level)}rem`;
 
   const addSort = (column: string) => {
     const current = sorts.find(a => a.column == column);
@@ -25,7 +25,8 @@ export const ObjectTableViewer = ({
   };
 
   return (
-    <div className="object-table-viewer" style={{ paddingLeft }}>
+    <div className="object-table-viewer">
+      <NestingPadding level={level} />
       <table>
         <thead>
           <tr>

@@ -25,6 +25,11 @@ body {
   background-color: #eee;
 }
 
+.nesting {
+  border-left: 1px dashed #888;
+  transform: translateX(.2rem);
+}
+
 .selection-panel {
   color: #aaa;
   >* {
@@ -146,18 +151,26 @@ body {
   color: #888;
   .icon {
     white-space: pre;
-    min-width: 1rem;
     height: 100%;
     text-align: center;
     padding-right: .5rem;
-    display: inline-block;
-    .fa-circle {
-      font-size: .3rem;
-      transform: translateY(-.15rem);
-    }
-    .fa-chevron-right,
-    .fa-chevron-down {
-      font-size: .7rem;
+    display: flex;
+    .image {
+      min-width: .6rem;
+      i {
+        position: relative;
+        top: .7rem;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .fa-circle {
+        font-size: .3rem;
+        transform: translateX(-.3rem);
+      }
+      .fa-chevron-right,
+      .fa-chevron-down {
+        font-size: .7rem;
+      }
     }
   }
   .icon:after {
@@ -171,14 +184,12 @@ body {
     padding-bottom: .1rem;
     display: flex;
     .label {
-      padding-left: .5rem;
-      padding-right: .5rem;
+      padding-right: .3rem;
       font-weight: bold;
-      background-color: #ddd;
     }
     .simple-value {
-      padding-left: .7rem;
-      padding-right: .5rem;
+      padding-left: .3rem;
+      padding-right: .3rem;
     }
     .toolbar {
       position: absolute;
@@ -196,51 +207,54 @@ body {
   }
 }
 
-.object-table-viewer>table {
-  border-collapse: collapse;
-  thead>tr>th {
-    position: sticky;
-    top: -1px;
-    z-index: 1;
-    &:before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background-color: #ddd;
+.object-table-viewer {
+  display: flex;
+  >table {
+    border-collapse: collapse;
+    thead>tr>th {
+      position: sticky;
+      top: -1px;
+      z-index: 1;
+      &:before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: #ddd;
+      }
     }
-  }
-  thead>tr>th:first-child {
-    z-index: 2;
-  }
-  tr>th:first-child {
-    position: sticky;
-    left: -1px;
-    z-index: 1;
-    &:after {
-      content: '';
-      position: absolute;
-      right: 0;
-      top: 0;
-      height: 100%;
-      width: 1px;
-      background-color: #ddd;
+    thead>tr>th:first-child {
+      z-index: 2;
     }
-  }
-  td,
-  th {
-    border: 1px solid #ddd;
-    vertical-align: top;
-  }
-  th {
-    background-color: #eee;
-    padding: .1rem .5rem;
-  }
-  td {
-    .simple-value {
+    tr>th:first-child {
+      position: sticky;
+      left: -1px;
+      z-index: 1;
+      &:after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 1px;
+        background-color: #ddd;
+      }
+    }
+    td,
+    th {
+      border: 1px solid #ddd;
+      vertical-align: top;
+    }
+    th {
+      background-color: #eee;
       padding: .1rem .5rem;
+    }
+    td {
+      .simple-value {
+        padding: .1rem .5rem;
+      }
     }
   }
 }
@@ -248,4 +262,5 @@ body {
 .empty-indicator {
   padding: .1rem;
   color: #888;
+  display: flex;
 }

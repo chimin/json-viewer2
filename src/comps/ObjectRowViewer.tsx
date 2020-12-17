@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import {
-  buildJsonPath,
-  computeNestingOffset, isEmptyObjectOrArray, isPathDescendantOf, isSimpleType, isTableType, useLastState, useLastStateBoolean,
+  buildJsonPath, isEmptyObjectOrArray, isPathDescendantOf, isSimpleType, isTableType, useLastState, useLastStateBoolean,
 } from '../utils';
 import { ObjectViewer } from './ObjectViewer';
 import { SimpleValueViewer } from './SimpleValueViewer';
@@ -26,7 +25,6 @@ export const ObjectRowViewer = ({ value, valueMetadata }: {
   const valueIsSimpleType = isSimpleType(value);
   const valueIsTableType = !valueIsSimpleType && isTableType(value);
   const effectiveValueViewerType = valueIsTableType ? valueViewerType : 'tree-view';
-  const iconPaddingLeft = `${computeNestingOffset(level)}rem`;
 
   useEffect(() => {
     if (isPathDescendantOf(path, treeActionContext.action?.path)) {
@@ -60,7 +58,7 @@ export const ObjectRowViewer = ({ value, valueMetadata }: {
           valueIsSimpleType={valueIsSimpleType}
           isExpanded={isExpanded}
           setExpanded={setExpanded}
-          paddingLeft={iconPaddingLeft}
+          level={level}
         />
         <span className="label" title={buildJsonPath(path)}>{label}</span>
         {
