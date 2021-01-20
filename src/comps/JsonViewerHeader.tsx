@@ -1,11 +1,19 @@
 import React from 'react';
 import { JsonViewerType } from '../types';
 
-export const JsonViewerHeader = ({ viewerType, setViewerType }: {
+export const JsonViewerHeader = ({ viewerType, setViewerType, isSwaggerJson }: {
   viewerType: JsonViewerType,
-  setViewerType: (value: JsonViewerType) => void
+  setViewerType: (value: JsonViewerType) => void,
+  isSwaggerJson: boolean,
 }) => (
+  <div className="app">
     <div className="json-viewer-header">
+      {isSwaggerJson ? (
+        <label>
+          <input type="radio" checked={viewerType == 'swagger-view'} onChange={() => setViewerType('swagger-view')} />
+        Swagger view
+        </label>
+      ) : null}
       <label>
         <input type="radio" checked={viewerType == 'tree-view'} onChange={() => setViewerType('tree-view')} />
         Tree view
@@ -19,4 +27,5 @@ export const JsonViewerHeader = ({ viewerType, setViewerType }: {
         Raw
       </label>
     </div>
-  );
+  </div>
+);

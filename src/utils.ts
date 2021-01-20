@@ -31,6 +31,10 @@ export function isEmptyObjectOrArray(value: any) {
   return !value || Object.keys(value).length == 0;
 }
 
+export function checkIsSwaggerJson(json: any) {
+  return /\d+\.\d+/.test(json.swagger);
+}
+
 export function formatSimpleValue(value: any) {
   return value === null ? 'null' : value === undefined ? 'undefined' : value.toString();
 }

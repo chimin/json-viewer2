@@ -5,7 +5,7 @@ import { JsonViewer } from '../src/comps/JsonViewer';
 require('../src/comps/Styles.scss').default.use();
 require('../node_modules/@fortawesome/fontawesome-free/css/all.min.css').default.use();
 
-const json = require('./test.json');
+const json = require('./swagger.json');
 
 const hidden = document.createElement('div');
 hidden.textContent = '...';

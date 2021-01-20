@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   defaultValueMetadata, JsonViewerType, TreeAction, TreeActionType,
 } from '../types';
-import { useLastState } from '../utils';
+import { checkIsSwaggerJson, useLastState } from '../utils';
 import { RootViewer } from './RootViewer';
 import { JsonViewerHeader } from './JsonViewerHeader';
 import { PrettyPrintViewer } from './PrettyPrintViewer';
 import { RawViewer } from './RawViewer';
 import { TreeActionContext } from './TreeActionContext';
+import { SwaggerViewer } from './SwaggerViewer';
 
 export const JsonViewer = ({ json, raw }: {
   json: any,
@@ -15,6 +16,7 @@ export const JsonViewer = ({ json, raw }: {
 }) => {
   const [action, setAction] = useState<TreeAction>();
   const [viewerType, setViewerType] = useLastState<JsonViewerType>('jsonViewerType', 'raw');
+  const isSwaggerJson = useMemo(() => checkIsSwaggerJson(json), [json]);
 
   const triggerAction = async (actionType: TreeActionType, path: string[]): Promise<void> => new Promise(resolve => {
     const states: Record<string, boolean> = {};
@@ -40,17 +42,26 @@ export const JsonViewer = ({ json, raw }: {
 
   return (
     <div className="json-viewer">
-      <JsonViewerHeader viewerType={viewerType} setViewerType={setViewerType} />
+      <JsonViewerHeader viewerType={viewerType} setViewerType={setViewerType} isSwaggerJson={isSwaggerJson} />
       <div className="body">
         {
-          viewerType == 'tree-view' ? (
+          viewerType == 'swagger-view' ? (
+            <SwaggerViewer json={json} />
+          ) : viewerType == 'tree-view' ? (
             <TreeActionContext.Provider value={{ action, triggerAction, stopAction }}>
-              <RootViewer value={json} valueMetadata={defaultValueMetadata} />
+              <div className="app">
+                <RootViewer value={json} valueMetadata={defaultValueMetadata} />
+              </div>
             </TreeActionContext.Provider>
-          ) :
-            viewerType == 'pretty-print' ? <PrettyPrintViewer json={json} /> :
-              viewerType == 'raw' ? <RawViewer raw={raw} /> :
-                null
+          ) : viewerType == 'pretty-print' ? (
+            <div className="app">
+              <PrettyPrintViewer json={json} />
+            </div>
+          ) : viewerType == 'raw' ? (
+            <div className="app">
+              <RawViewer raw={raw} />
+            </div>
+          ) : null
         }
       </div>
     </div>
