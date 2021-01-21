@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Pokok JSON Viewer",
-  "version": "1.3",
+  "version": "1.4",
   "description": "Show the JSON in tree view or table view",
   "icons": {
     "128": "icon.png"
