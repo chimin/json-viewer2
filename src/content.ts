@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ndjsonParse from 'ndjson-parse';
 import { JsonViewer } from './comps/JsonViewer';
 
 setup();
@@ -21,8 +22,16 @@ function parseJson(raw: Element) {
   try {
     return JSON.parse(raw.textContent);
   } catch {
-    return undefined;
+    // do nothing
   }
+
+  try {
+    return ndjsonParse(raw.textContent);
+  } catch {
+    // do nothing
+  }
+
+  return undefined;
 }
 
 function setup() {
