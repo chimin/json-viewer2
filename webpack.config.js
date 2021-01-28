@@ -54,6 +54,9 @@ module.exports = {
       content: './test/dist',
     }),
   ],
+  optimization: {
+    minimize: false,
+  },
   watchOptions: {
     ignored: ['node_modules/**', 'dist/**', 'test/dist/**', 'out/**'],
   },
