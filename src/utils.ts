@@ -54,7 +54,7 @@ export function parseNdjson(value: string) {
 }
 
 export function checkShouldBeSwaggerJson(json: any) {
-  return /\d+\.\d+/.test(json.swagger);
+  return /\d+(\.\d+)*/.test(json.swagger);
 }
 
 export function checkShouldBeSwaggerYaml(value: string) {
