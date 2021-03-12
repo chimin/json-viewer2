@@ -1,46 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ndjsonParse from 'ndjson-parse';
 import { JsonViewer } from './comps/JsonViewer';
+import {
+ parseJson, parseNdjson, parseYaml, checkShouldBeJsonObject, checkShouldBeSwaggerYaml,
+} from './utils';
 
 setup();
 
-function getJsonElement() {
+function getRawElement() {
   if (document.body.firstElementChild &&
     document.body.firstElementChild == document.body.lastElementChild &&
     document.body.firstElementChild.tagName == 'PRE'
   ) {
-    const content = document.body.firstElementChild.textContent;
-    if (content.match(/^[{[]/)) {
-      return document.body.firstElementChild;
-    }
+    return document.body.firstElementChild;
   }
-  return undefined;
-}
-
-function parseJson(raw: Element) {
-  try {
-    return JSON.parse(raw.textContent);
-  } catch {
-    // do nothing
-  }
-
-  try {
-    return ndjsonParse(raw.textContent);
-  } catch {
-    // do nothing
-  }
-
   return undefined;
 }
 
 function setup() {
-  const raw = getJsonElement();
+  const raw = getRawElement();
   if (!raw) {
     return;
   }
 
-  const json = parseJson(raw);
+  const json = checkShouldBeJsonObject(raw.textContent) ? parseJson(raw.textContent) || parseNdjson(raw.textContent) :
+    checkShouldBeSwaggerYaml(raw.textContent) ? parseYaml(raw.textContent) :
+      undefined;
   if (!json) {
     return;
   }

@@ -25,17 +25,22 @@ module.exports = {
         test: /\.css$/i,
         use: [
           { loader: 'style-loader', options: { injectType: 'lazyStyleTag' } },
-          'css-loader'],
+          'css-loader',
+        ],
       }, {
         test: /\.s[ac]ss$/i,
         use: [
           { loader: 'style-loader', options: { injectType: 'lazyStyleTag' } },
           'css-loader',
-          'sass-loader'],
+          'sass-loader',
+        ],
       }, {
         test: /\.(png|jpe?g|gif|svg|ttf|woff2?|eot)$/i,
         loader: 'file-loader',
         options: { postTransformPublicPath: p => `browser.runtime.getURL(${p})` },
+      }, {
+        test: /\.yml?$/,
+        use: 'raw-loader',
       },
     ],
   },

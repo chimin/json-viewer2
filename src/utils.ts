@@ -2,6 +2,8 @@
 /* global browser */
 
 import { useEffect, useState } from 'react';
+import ndjsonParse from 'ndjson-parse';
+import yaml from 'js-yaml';
 
 export function isNullOrUndefined(value: any) {
   return value === null || value === undefined;
@@ -31,8 +33,40 @@ export function isEmptyObjectOrArray(value: any) {
   return !value || Object.keys(value).length == 0;
 }
 
-export function checkIsSwaggerJson(json: any) {
+export function checkShouldBeJsonObject(value: string) {
+  return value.match(/^[{[]/);
+}
+
+export function parseJson(value: string) {
+  try {
+    return JSON.parse(value);
+  } catch {
+    return undefined;
+  }
+}
+
+export function parseNdjson(value: string) {
+  try {
+    return ndjsonParse(value);
+  } catch {
+    return undefined;
+  }
+}
+
+export function checkShouldBeSwaggerJson(json: any) {
   return /\d+\.\d+/.test(json.swagger);
+}
+
+export function checkShouldBeSwaggerYaml(value: string) {
+  return !!value.split(/\r?\n/, 10).find(line => line.match(/^swagger:(.*)$/));
+}
+
+export function parseYaml(value: string) {
+  try {
+    return yaml.load(value);
+  } catch {
+    return undefined;
+  }
 }
 
 export function formatSimpleValue(value: any) {
