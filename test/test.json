@@ -13,6 +13,7 @@
   "multiline-string-field": "this\nis\nmultiline\nstring",
   "link-field": "http://www.google.com",
   "link-field-2": "https://www.google.com",
+  "link-field-3": "https://www.google.com http://www.microsoft.com",
   "empty-object-field": {},
   "empty-array-field": [],
   "object-field": {

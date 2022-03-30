@@ -6,12 +6,15 @@ import { checkShouldBeSwaggerYaml, parseYaml } from '../src/utils';
 require('../src/comps/Styles.scss').default.use();
 require('../node_modules/@fortawesome/fontawesome-free/css/all.min.css').default.use();
 
-const rawContent = require('./swagger.yml').default;
+// const rawContent = require('./test.json').default;
 
-const json = checkShouldBeSwaggerYaml(rawContent) ? parseYaml(rawContent) : undefined;
-if (!json) {
-  throw new Error('invalid raw content');
-}
+// const json = checkShouldBeSwaggerYaml(rawContent) ? parseYaml(rawContent) : undefined;
+// if (!json) {
+//   throw new Error('invalid raw content');
+// }
+
+const json = require('./test.json');
+const rawContent = JSON.stringify(json);
 
 const hidden = document.createElement('div');
 hidden.textContent = '...';
