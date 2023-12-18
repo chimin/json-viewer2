@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { JsonViewer } from './comps/JsonViewer';
 import {
- parseJson, parseNdjson, parseYaml, checkShouldBeJsonObject, checkShouldBeSwaggerYaml,
+  parseJson, parseNdjson, parseYaml, checkShouldBeJsonObject, checkShouldBeSwaggerYaml,
 } from './utils';
 
 setup();
@@ -14,6 +14,11 @@ function getRawElement() {
   ) {
     return document.body.firstElementChild;
   }
+
+  if (document.body.getAttribute('data-code-mirror') == 'Readonly code editor.') {
+    return document.body.firstElementChild;
+  }
+
   return undefined;
 }
 
@@ -32,6 +37,10 @@ function setup() {
 
   require('./comps/Styles.scss').default.use();
   require('../node_modules/@fortawesome/fontawesome-free/css/all.min.css').default.use();
+
+  if (raw.getAttribute('hidden')) {
+    raw.removeAttribute('hidden');
+  }
 
   const container = document.createElement('div');
   document.body.innerHTML = '';
