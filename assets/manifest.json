@@ -21,10 +21,17 @@
     "storage"
   ],
   "web_accessible_resources": [
-    "*.svg",
-    "*.ttf",
-    "*.woff",
-    "*.woff2",
-    "*.eot"
+    {
+      "resources": [
+        "*.svg",
+        "*.ttf",
+        "*.woff",
+        "*.woff2",
+        "*.eot"
+      ],
+      "matches": [
+        "*://*/*"
+      ]
+    }
   ]
 }
